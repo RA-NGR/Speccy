@@ -1,0 +1,77 @@
+#pragma once
+#include <Arduino.h>
+#include "hardware/dma.h"
+#include "hardware/pio.h"
+#include "hardware/clocks.h"
+#include <LittleFS.h>
+#include <SD.h>
+#include <SPI.h>
+
+ 
+#define DBG
+#define KBD_EMULATED
+
+#define TFT_WR   20    // Write strobe pin
+#define TFT_DC   21    // Data Command control pin
+
+#define TFT_DATA  0
+//#define TFT_D00   0
+//#define TFT_D01   1
+//#define TFT_D02   2
+//#define TFT_D03   3
+//#define TFT_D04   4
+//#define TFT_D05   5
+//#define TFT_D06   6
+//#define TFT_D07   7
+//#define TFT_D08   8
+//#define TFT_D09   9
+//#define TFT_D10  10
+//#define TFT_D11  11
+//#define TFT_D12  12
+//#define TFT_D13  13
+//#define TFT_D14  14
+//#define TFT_D15  15
+#define PIO_CLK_DIV   7
+#define PIO_CLK_FRACT 0
+#define TFT_REFRESHRATE 0x10 /* 119 Hz */
+//#define TFT_REFRESHRATE 0x11 /* 112 Hz */
+//#define TFT_REFRESHRATE 0x12 /* 106 Hz */
+//#define TFT_REFRESHRATE 0x13 /* 100 Hz */
+//#define TFT_REFRESHRATE 0x14 /* 95 Hz	 */
+//#define TFT_REFRESHRATE 0x15 /* 90 Hz	 */
+//#define TFT_REFRESHRATE 0x16 /* 86 Hz	 */
+//#define TFT_REFRESHRATE 0x17 /* 83 Hz	 */
+//#define TFT_REFRESHRATE 0x18 /* 79 Hz	 */
+//#define TFT_REFRESHRATE 0x19 /* 76 Hz	 */
+//#define TFT_REFRESHRATE 0x1A /* 73 Hz	 */
+//#define TFT_REFRESHRATE 0x1B /* 70 Hz	 */
+//#define TFT_REFRESHRATE 0x1C /* 68 Hz	 */
+//#define TFT_REFRESHRATE 0x1D /* 65 Hz	 */
+//#define TFT_REFRESHRATE 0x1E /* 63 Hz	 */
+//#define TFT_REFRESHRATE 0x1F /* 61 Hz	 */
+
+#define DMA_BUFF_SIZE 60
+
+#define LOOPCYCLES 69888
+#define SCREENOFFSET 40
+#define STARTSCREEN (8960 - 16)
+#define ENDSCREEN (62720 - 16)
+#define IRQ_LENGTH 32
+#define BORDER_BUFFER_SIZE 128
+#define SOUND_BUFFER_SIZE 2048
+// 109200 Hz sound timer Dividers are: 146 at 16 MHz, 73 at 8 MHz
+
+#define ROMFILENAME "/BASIC82.rom"
+//#define ROMFILENAME "/BASIC90v1.rom"
+//#define ROMFILENAME "/BASIC90v2.rom"
+//#define ROMFILENAME "/BASIC91.rom"
+
+#ifdef DBG
+#define DBG_PRINT(a) Serial.print(a)
+#define DBG_PRINTLN(a) Serial.println(a)
+#define DBG_PRINTF Serial.printf
+#else
+#define DBG_PRINT(a) 
+#define DBG_PRINTLN(a)
+#define DBG_PRINTF //
+#endif // DBG
