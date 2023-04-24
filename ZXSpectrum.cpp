@@ -208,6 +208,7 @@ void ZXSpectrum::writePort(WORD port, BYTE data)
 				m_borderColor = m_colorLookup[data & 0x07];
 		}
 		//if ((m_pPeriphInstance != NULL) && m_outPortFE.soundOut != ((data >> 4) & 1)) m_pPeriphInstance->pushSoundBit(m_Z80Processor.tCount >> 5);
+		if (m_outPortFE.soundOut != ((data >> 4) & 1)) multicore_fifo_push_blocking(m_Z80Processor.tCount);
 		m_outPortFE.rawData = data;
 	}
 	if (!(port & 0x0001))
@@ -4696,6 +4697,7 @@ void ZXSpectrum::loopZ80()
 	int32_t usedCycles;
 
 //	m_pPeriphInstance->frameStart();
+	multicore_fifo_push_blocking(0x00000000);
 	intZ80();
 	while (m_Z80Processor.tCount < LOOPCYCLES)
 	{
@@ -4722,7 +4724,7 @@ void ZXSpectrum::loopZ80()
 	m_frameCounter = (++m_frameCounter) & 0x1F;
 	if (m_Z80Processor.intEnabledAt >= 0) m_Z80Processor.intEnabledAt -= LOOPCYCLES;
 	m_emulationTime = micros() - startTime;
-	if (m_emulationTime < 20000) delayMicroseconds(20000 - m_emulationTime);
+//	if (m_emulationTime < 20000) delayMicroseconds(20000 - m_emulationTime);
 //	m_emulationTime = micros() - startTime;
 //	m_pDisplayInstance->resetPosition();
 }

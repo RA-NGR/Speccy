@@ -26,6 +26,8 @@ Display g_display;
 //ZXPeripherals g_zxPeriph;
 ZXSpectrum g_zxEmulator;
 
+uint32_t core1Stack[1024];
+
 #ifdef KBD_EMULATED
 struct
 {
@@ -51,6 +53,7 @@ int32_t tapePause = -1;
 
 void setup()
 {
+	digitalWrite(LED_BUILTIN, LOW);
 #if defined(DBG) || defined(KBD_EMULATED)
 	Serial.begin(115200);
 #endif // DBG || KBD_EMULATED
@@ -62,7 +65,17 @@ void setup()
 #ifndef KBD_EMULATED
 	g_zxPeriph.init();
 #endif // !KBD_EMULATED
-	//SD.begin(SS);
+//	multicore_reset_core1();
+//	delay(1);
+//	multicore_launch_core1_with_stack(myLoop, core1Stack, sizeof(core1Stack));
+//}
+//
+//void myLoop()
+//{
+//	while (true)
+//	{
+//		if (multicore_fifo_rvalid()) multicore_fifo_pop_blocking();
+//	}
 }
 
 bool readTAPSection(File& file)
@@ -197,4 +210,11 @@ void loop()
 #endif // KBD_EMULATED
 }
 
+void setup1()
+{
+}
 
+void loop1()
+{
+	if (multicore_fifo_rvalid()) multicore_fifo_pop_blocking();
+}

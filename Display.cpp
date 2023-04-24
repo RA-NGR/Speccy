@@ -68,7 +68,7 @@ bool Display::init()
     sm_config_set_clkdiv_int_frac(&smCfg, PIO_CLK_DIV, PIO_CLK_FRACT);
     sm_config_set_fifo_join(&smCfg, PIO_FIFO_JOIN_TX);
     sm_config_set_out_shift(&smCfg, false, false, 0);
-    pio_sm_init(m_pio, m_pioSM, programOffsetx, &smCfg);
+    pio_sm_init(m_pio, m_pioSM, programOffset, &smCfg);
     pio_sm_set_enabled(m_pio, m_pioSM, true);
     m_pullStallMask = 1u << (PIO_FDEBUG_TXSTALL_LSB + m_pioSM);
     m_pioInstrSetDC = pio_encode_set((pio_src_dest)0, 1);
