@@ -39,9 +39,7 @@ void ZXSpectrum::drawLine(int posY)
 			zxInkColor = zxColorAttrib & 0x07; zxPaperColor = (zxColorAttrib & 0x38) >> 3;
 			for (i = 0; i < 8; i++)
 			{
-				//tftMemAddr = (posX * 8 + i + 32) ^ 1;
-				tftMemAddr = posX * 8 + i + 32;
-				bitPos = (0x80 >> i);
+				tftMemAddr = posX * 8 + i + 32;	bitPos = (0x80 >> i);
 				if ((zxPixelMap & bitPos) != 0)
 					m_pScreenBuffer[buffSwitch][tftMemAddr + buffOffset] = m_colorLookup[zxInkColor + zxBrightFlag];
 				else
@@ -4665,7 +4663,6 @@ void ZXSpectrum::stepZ80()
 bool ZXSpectrum::init(Display* pDisplayInstance/*, ZXPeripherals* pPeriphInstance*/)
 {
 	m_pDisplayInstance = pDisplayInstance;
-	//m_pPeriphInstance = pPeriphInstance;
 	for (uint8_t i = 0; i < 2; i++) m_pScreenBuffer[i] = m_pDisplayInstance->getBuffer(i);
 	if ((m_pZXMemory = (uint8_t*)malloc(65535)) == NULL) { printf("Error allocating ZXMemory"); return false; }
 	if ((m_pContendTable = (uint8_t*)malloc(42910)) == NULL) { printf("Error allocating contended access table"); return false; }

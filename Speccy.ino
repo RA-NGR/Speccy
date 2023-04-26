@@ -2,7 +2,6 @@
 #include "Display.h"
 #include "ZXSpectrum.h"
 Display g_display;
-//ZXPeripherals g_zxPeriph;
 ZXSpectrum g_zxEmulator;
 
 #ifdef KBD_EMULATED
@@ -27,6 +26,7 @@ uint16_t tapSize = 0;
 File tapFile;
 bool tapActive = false;
 int32_t tapePause = -1;
+/// Core 1
 int cyclesDone = 0;
 alarm_pool_t* pCore1Pool;
 struct repeating_timer clockTimer;
@@ -51,7 +51,7 @@ void loop1()
 	uint32_t ctrlData = 0;
 	rp2040.fifo.pop_nb(&ctrlData);
 	if (ctrlData == START_FRAME) alarm_pool_add_repeating_timer_us(pCore1Pool, SOUND_CLOCK, timerCallback, NULL, &clockTimer);
-	if (ctrlData == STOP_FRAME) DBG_PRINTLN("Achtung");
+//	if (ctrlData == STOP_FRAME) DBG_PRINTLN("Achtung");
 }
 
 void setup()
@@ -69,10 +69,7 @@ void setup()
 #ifndef KBD_EMULATED
 	g_zxPeriph.init();
 #endif // !KBD_EMULATED
-	//multicore_reset_core1();
-	//delay(1);
-	//multicore_launch_core1(core1Loop);
-	SD.begin(SS);
+//	SD.begin(SS);
 
 }
 
