@@ -1,32 +1,9 @@
 #include "Settings.h"
 #include "Display.h"
 #include "ZXSpectrum.h"
-//
-//Display display;
-//ZXSpectrum emulator;
-//
-//void setup() 
-//{
-//    Serial.begin(115200);
-//    delay(5000);
-//    display.init();
-//    emulator.init(&display);
-//}
-//
-//void loop(void)
-//{
-//    uint32_t stTime = micros();
-//    for (int y = 0; y < 240; y++) emulator.drawLine(y);
-//    DBG_PRINTF("FPS: %.2f\n", 1000000.0 / (micros() - stTime));
-//    emulator.m_frameCounter = (++emulator.m_frameCounter) & 0x1F;
-//}
-//
-
 Display g_display;
 //ZXPeripherals g_zxPeriph;
 ZXSpectrum g_zxEmulator;
-
-uint32_t core1Stack[1024];
 
 #ifdef KBD_EMULATED
 struct
@@ -50,32 +27,53 @@ uint16_t tapSize = 0;
 File tapFile;
 bool tapActive = false;
 int32_t tapePause = -1;
+int cyclesDone = 0;
+alarm_pool_t* pCore1Pool;
+struct repeating_timer clockTimer;
+
+void setup1()
+{
+	pCore1Pool = alarm_pool_create_with_unused_hardware_alarm(16);
+}
+
+bool timerCallback(struct repeating_timer* timer)
+{
+	cyclesDone += (SOUND_CLOCK / 8) * 28;
+	if (cyclesDone < LOOPCYCLES) return true;
+	rp2040.fifo.push(STOP_FRAME);
+	cyclesDone -= LOOPCYCLES;
+	//cyclesDone = 0;
+	return false;
+}
+
+void loop1()
+{
+	uint32_t ctrlData = 0;
+	rp2040.fifo.pop_nb(&ctrlData);
+	if (ctrlData == START_FRAME) alarm_pool_add_repeating_timer_us(pCore1Pool, SOUND_CLOCK, timerCallback, NULL, &clockTimer);
+	if (ctrlData == STOP_FRAME) DBG_PRINTLN("Achtung");
+}
 
 void setup()
 {
 	digitalWrite(LED_BUILTIN, LOW);
 #if defined(DBG) || defined(KBD_EMULATED)
 	Serial.begin(115200);
+	delay(5000);
 #endif // DBG || KBD_EMULATED
 	g_display.init();
-//	g_zxPeriph.init();
+	//	g_zxPeriph.init();
 	delay(100);
 	g_zxEmulator.init(&g_display/*, &g_zxPeriph*/);
 	g_zxEmulator.resetZ80();
 #ifndef KBD_EMULATED
 	g_zxPeriph.init();
 #endif // !KBD_EMULATED
-//	multicore_reset_core1();
-//	delay(1);
-//	multicore_launch_core1_with_stack(myLoop, core1Stack, sizeof(core1Stack));
-//}
-//
-//void myLoop()
-//{
-//	while (true)
-//	{
-//		if (multicore_fifo_rvalid()) multicore_fifo_pop_blocking();
-//	}
+	//multicore_reset_core1();
+	//delay(1);
+	//multicore_launch_core1(core1Loop);
+	SD.begin(SS);
+
 }
 
 bool readTAPSection(File& file)
@@ -195,6 +193,7 @@ void loop()
 	}
 #endif // !KBD_EMULATED
 	g_zxEmulator.loopZ80();
+	while (rp2040.fifo.pop() != STOP_FRAME);
 	uint32_t emulTime = g_zxEmulator.getEmulationTime();
 	if (emulTime > maxTime) maxTime = emulTime;
 	loopCounter++;
@@ -208,13 +207,4 @@ void loop()
 	for (int i = 0; i < 8; i++)
 		g_zxEmulator.orPortVal(i, 0xBF);
 #endif // KBD_EMULATED
-}
-
-void setup1()
-{
-}
-
-void loop1()
-{
-	if (multicore_fifo_rvalid()) multicore_fifo_pop_blocking();
 }

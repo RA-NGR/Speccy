@@ -128,7 +128,7 @@ inline __attribute__((always_inline)) void ZXSpectrum::writeMem(WORD address, BY
 	if (address >= 0x4000) m_pZXMemory[address] = data;
 }
 
-inline ZXSpectrum::BYTE ZXSpectrum::readMem(WORD address)
+inline __attribute__((always_inline)) ZXSpectrum::BYTE ZXSpectrum::readMem(WORD address)
 {
 	contendedAccess(address, 3);
 	return m_pZXMemory[address];
@@ -207,8 +207,7 @@ void ZXSpectrum::writePort(WORD port, BYTE data)
 			else
 				m_borderColor = m_colorLookup[data & 0x07];
 		}
-		//if ((m_pPeriphInstance != NULL) && m_outPortFE.soundOut != ((data >> 4) & 1)) m_pPeriphInstance->pushSoundBit(m_Z80Processor.tCount >> 5);
-		if (m_outPortFE.soundOut != ((data >> 4) & 1)) multicore_fifo_push_blocking(m_Z80Processor.tCount);
+		if (m_outPortFE.soundOut != ((data >> 4) & 1)) rp2040.fifo.push_nb(m_Z80Processor.tCount);
 		m_outPortFE.rawData = data;
 	}
 	if (!(port & 0x0001))
@@ -4696,8 +4695,7 @@ void ZXSpectrum::loopZ80()
 	uint64_t startTime = micros(); 
 	int32_t usedCycles;
 
-//	m_pPeriphInstance->frameStart();
-	multicore_fifo_push_blocking(0x00000000);
+	rp2040.fifo.push(START_FRAME);
 	intZ80();
 	while (m_Z80Processor.tCount < LOOPCYCLES)
 	{
@@ -4724,9 +4722,6 @@ void ZXSpectrum::loopZ80()
 	m_frameCounter = (++m_frameCounter) & 0x1F;
 	if (m_Z80Processor.intEnabledAt >= 0) m_Z80Processor.intEnabledAt -= LOOPCYCLES;
 	m_emulationTime = micros() - startTime;
-//	if (m_emulationTime < 20000) delayMicroseconds(20000 - m_emulationTime);
-//	m_emulationTime = micros() - startTime;
-//	m_pDisplayInstance->resetPosition();
 }
 
 void ZXSpectrum::startTape(BYTE* pBuffer, uint32_t bufferSize)

@@ -193,7 +193,6 @@ class ZXSpectrum
 	} m_outPortFE;
 	BYTE m_inPortFE[9] = { 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0x00 }; // 8 - kempston
 	Display* m_pDisplayInstance;
-//	ZXPeripherals* m_pPeriphInstance;
 	void drawLine(int posY);
 	int8_t intZ80();
 	void processTape();
@@ -211,7 +210,7 @@ class ZXSpectrum
 public:
 	ZXSpectrum() {};
 	~ZXSpectrum();
-	bool init(Display* pDisplayInstance/*, ZXPeripherals* pPeriphInstance = NULL*/);
+	bool init(Display* pDisplayInstance);
 	void resetZ80();
 	void loopZ80();
 	uint32_t getEmulationTime() { return m_emulationTime; };

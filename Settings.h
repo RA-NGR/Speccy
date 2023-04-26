@@ -11,26 +11,11 @@
 #define DBG
 #define KBD_EMULATED
 
-#define TFT_WR   20    // Write strobe pin
-#define TFT_DC   21    // Data Command control pin
+#define TFT_WR   20		// Write strobe pin
+#define TFT_DC   21		// Data Command control pin
 
-#define TFT_DATA  0
-//#define TFT_D00   0
-//#define TFT_D01   1
-//#define TFT_D02   2
-//#define TFT_D03   3
-//#define TFT_D04   4
-//#define TFT_D05   5
-//#define TFT_D06   6
-//#define TFT_D07   7
-//#define TFT_D08   8
-//#define TFT_D09   9
-//#define TFT_D10  10
-//#define TFT_D11  11
-//#define TFT_D12  12
-//#define TFT_D13  13
-//#define TFT_D14  14
-//#define TFT_D15  15
+#define TFT_DATA  0		// Data bus start pin
+#define SND_DATA 22		// Sound pin
 #define PIO_CLK_DIV   7
 #define PIO_CLK_FRACT 0
 #define TFT_REFRESHRATE 0x10 /* 119 Hz */
@@ -50,15 +35,19 @@
 //#define TFT_REFRESHRATE 0x1E /* 63 Hz	 */
 //#define TFT_REFRESHRATE 0x1F /* 61 Hz	 */
 
-#define DMA_BUFF_SIZE 60
+#define DMA_BUFF_SIZE 40
+//#define USE_STACK
 
+#define START_FRAME 0x01000000
+#define STOP_FRAME  0x02000000
 #define LOOPCYCLES 69888
 #define SCREENOFFSET 40
 #define STARTSCREEN (8960 - 16)
 #define ENDSCREEN (62720 - 16)
 #define IRQ_LENGTH 32
 #define BORDER_BUFFER_SIZE 128
-#define SOUND_BUFFER_SIZE 2048
+#define SOUND_CLOCK 48 /* in us, 20 kHz should be enough */
+//#define SOUND_BUFFER_SIZE 2048
 // 109200 Hz sound timer Dividers are: 146 at 16 MHz, 73 at 8 MHz
 
 #define ROMFILENAME "/BASIC82.rom"
