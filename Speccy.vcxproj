@@ -79,12 +79,14 @@
       <FileType>CppCode</FileType>
       <DeploymentContent>true</DeploymentContent>
     </ClCompile>
+    <ClCompile Include="ZXPeripherals.cpp" />
     <ClCompile Include="ZXSpectrum.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="ZXMacros.h" />
+    <ClInclude Include="ZXPeripherals.h" />
     <ClInclude Include="ZXSpectrum.h" />
     <ClInclude Include="__vm\.Speccy.vsarduino.h" />
   </ItemGroup>

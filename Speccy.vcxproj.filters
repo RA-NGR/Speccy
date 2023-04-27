@@ -22,6 +22,9 @@
     <ClCompile Include="ZXSpectrum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ZXPeripherals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.Speccy.vsarduino.h">
@@ -37,6 +40,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ZXMacros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZXPeripherals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

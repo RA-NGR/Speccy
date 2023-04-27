@@ -6,16 +6,15 @@
 #include <LittleFS.h>
 #include <SD.h>
 #include <SPI.h>
-
  
 #define DBG
 #define KBD_EMULATED
 
-#define TFT_WR   20		// Write strobe pin
-#define TFT_DC   21		// Data Command control pin
+#define TFT_WR   20		/* Write strobe pin */
+#define TFT_DC   21		/* Data Command control pin */
 
-#define TFT_DATA  0		// Data bus start pin
-#define SND_DATA 22		// Sound pin
+#define TFT_DATA  0		/* Data bus start pin */
+#define SND_DATA 22		/* Sound pin */
 #define PIO_CLK_DIV   7
 #define PIO_CLK_FRACT 0
 #define TFT_REFRESHRATE 0x10 /* 119 Hz */
@@ -36,7 +35,6 @@
 //#define TFT_REFRESHRATE 0x1F /* 61 Hz	 */
 
 #define DMA_BUFF_SIZE 40
-//#define USE_STACK
 
 #define START_FRAME 0x01000000
 #define STOP_FRAME  0x02000000
