@@ -1,8 +1,7 @@
 #pragma once
 
-#include "Settings.h"
+#include "Common.h"
 #include "Display.h"
-//#include "ZXPeripherals.h"
 
 
 class ZXSpectrum

@@ -1,5 +1,5 @@
 #pragma once
-#include "Settings.h"
+#include "COmmon.h"
 
 class Display
 {

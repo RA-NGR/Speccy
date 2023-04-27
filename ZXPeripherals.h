@@ -1,5 +1,5 @@
 #pragma once
-#include "Settings.h"
+#include "Common.h"
 
 class ZXPeripherals
 {

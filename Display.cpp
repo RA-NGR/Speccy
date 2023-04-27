@@ -51,7 +51,7 @@ bool Display::init()
     if ((m_pioSM = pio_claim_unused_sm(m_pio, false)) < 0)
     {
         m_pio = pio1;
-        if ((m_pioSM = pio_claim_unused_sm(m_pio, true)) < 0) { DBG_PRINTLN("Error claiming PIO"); return m_initComplete; };
+        if ((m_pioSM = pio_claim_unused_sm(m_pio, true)) < 0) { DBG_PRINTLN("Unable to get PIO"); return m_initComplete; };
     }
     uint32_t programOffset = 0;
     programOffset = pio_add_program(m_pio, &m_pioProgram);
@@ -84,7 +84,7 @@ bool Display::init()
         else
             delay((uint32_t)(*dataPtr++));
     }
-    if ((m_dmaChannel = dma_claim_unused_channel(false)) < 0) { DBG_PRINTLN("Error claiming DMA"); return m_initComplete; };
+    if ((m_dmaChannel = dma_claim_unused_channel(false)) < 0) { DBG_PRINTLN("Unable to get DMA"); return m_initComplete; };
     m_dmaConfig = dma_channel_get_default_config(m_dmaChannel);
     channel_config_set_transfer_data_size(&m_dmaConfig, DMA_SIZE_16);
     channel_config_set_dreq(&m_dmaConfig, pio_get_dreq(m_pio, m_pioSM, true));
