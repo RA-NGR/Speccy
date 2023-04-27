@@ -3,7 +3,7 @@
 
 class ZXPeripherals
 {
-	alarm_pool_t* m_pCore1Pool = NULL;
+	alarm_pool_t* m_pAlarmPool = NULL;
 	struct repeating_timer m_clockTimer;
 	int m_cyclesDone = 0;
 public:
