@@ -31,15 +31,17 @@ int32_t tapePause = -1;
 
 void setup()
 {
-	digitalWrite(LED_BUILTIN, LOW);
+	//set_sys_clock_khz(266000, true);
+	//adc_init();
+	//adc_set_temp_sensor_enabled(true);
+	//adc_select_input(4);
 #if defined(DBG) || defined(KBD_EMULATED)
 	Serial.begin(115200);
 	delay(5000);
 #endif // DBG || KBD_EMULATED
 	g_mainDisplay.init();
-	//	g_zxPeriph.init();
 	delay(100);
-	g_zxEmulator.init(&g_mainDisplay/*, &g_zxPeriph*/);
+	g_zxEmulator.init(&g_mainDisplay);
 	g_zxEmulator.resetZ80();
 //	SD.begin(SS);
 
@@ -81,9 +83,6 @@ void loop()
 			}
 		}
 	}
-#ifndef KBD_EMULATED
-	g_zxPeriph.requestData();
-#endif // !KBD_EMULATED
 	int zxKey;
 	while ((zxKey = Serial.read()) != -1)
 	{
@@ -158,14 +157,6 @@ void loop()
 			g_zxEmulator.andPortVal(keyMap[i].portIdx, keyMap[i].bits);
 #endif // KBD_EMULATED
 	}
-#ifndef KBD_EMULATED
-	for (int i = 0; i < 8; i++) g_zxEmulator.setPortVal(i, g_zxPeriph.getData(i) | 0xA0 | g_zxEmulator.getPortVal(i) & 0x40);
-	g_zxEmulator.setPortVal(8, g_zxPeriph.getData(8) ^ 0x1F);
-	if (g_zxPeriph.getFKeys() == 0x1E)
-	{
-		g_zxEmulator.resetZ80(); maxTime = 0;
-	}
-#endif // !KBD_EMULATED
 	g_zxEmulator.loopZ80();
 	uint32_t emulTime = g_zxEmulator.getEmulationTime();
 	if (emulTime > maxTime) maxTime = emulTime;
@@ -173,13 +164,15 @@ void loop()
 	if (loopCounter > 89)
 	{
 		uint32_t tmp;
-		DBG_PRINTF("FPS:%.1f, min:%.1f\n", 1000000.0 / emulTime, 1000000.0 / maxTime);
+		//DBG_PRINTF("Core temp: %.2f°, FPS:%.1f, min:%.1f\n", 27.0 - (adc_read() * 0.0008056640625 - 0.706) / 0.001721, 1000000.0 / emulTime, 1000000.0 / maxTime);
+		DBG_PRINTF("Core temp: %.2f°, FPS:%.1f, min:%.1f\n", analogReadTemp(), 1000000.0 / emulTime, 1000000.0 / maxTime);
 		loopCounter = 0;
 	}
 #ifdef KBD_EMULATED
 	for (int i = 0; i < 8; i++)
 		g_zxEmulator.orPortVal(i, 0xBF);
 #endif // KBD_EMULATED
+	
 }
 
 void setup1()

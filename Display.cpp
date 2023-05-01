@@ -46,7 +46,7 @@ Display::~Display()
 bool Display::init()
 {
     for (int i = 0; i < 2; i++)
-        if ((m_pDMABuffers[i] = (uint16_t*)calloc(320 * DMA_BUFF_SIZE, 2)) == NULL) { DBG_PRINTLN("Error allocating DMA buffers"); return m_initComplete; };
+        if ((m_pDMABuffers[i] = (uint16_t*)calloc(320 * DMA_BUFF_SIZE, sizeof(uint16_t))) == NULL) { DBG_PRINTLN("Error allocating DMA buffers"); return m_initComplete; };
     m_pio = pio0;
     if ((m_pioSM = pio_claim_unused_sm(m_pio, false)) < 0)
     {

@@ -3,10 +3,13 @@
 #include "hardware/dma.h"
 #include "hardware/pio.h"
 #include "hardware/clocks.h"
+#include "hardware/adc.h"
+#include <pico/stdlib.h>
 #include <LittleFS.h>
 #include <SD.h>
 #include <SPI.h>
- 
+#include <Wire.h>
+
 #define DBG
 #define KBD_EMULATED
 
@@ -14,7 +17,9 @@
 #define TFT_DC   21		/* Data Command control pin */
 
 #define TFT_DATA  0		/* Data bus start pin */
-#define SND_DATA 22		/* Sound pin */
+#define SND_PIN  22		/* Sound pin */
+#define SDA_PIN  26
+#define SCL_PIN  27
 #define PIO_CLK_DIV   7
 #define PIO_CLK_FRACT 0
 #define TFT_REFRESHRATE 0x10 /* 119 Hz */
@@ -36,9 +41,10 @@
 
 #define DMA_BUFF_SIZE 40
 
-#define START_FRAME 0x01000000
-#define STOP_FRAME  0x02000000
-#define REQ_PORT    0x04000000
+#define START_FRAME 0x10000000
+#define STOP_FRAME  0x20000000
+#define WR_PORT     0x40000000
+#define RD_PORT     0x80000000
 #define LOOPCYCLES 69888
 #define SCREENOFFSET 40
 #define STARTSCREEN (8960 - 16)

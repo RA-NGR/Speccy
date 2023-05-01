@@ -165,6 +165,7 @@ ZXSpectrum::BYTE ZXSpectrum::readPort(WORD port)
 {
 	BYTE retVal = 0xFF;
 
+	rp2040.fifo.push_nb((uint32_t)port | RD_PORT);
 	contendedAccess(port, 1);
 	if (!(port & 0x0001))
 	{
@@ -205,7 +206,7 @@ void ZXSpectrum::writePort(WORD port, BYTE data)
 			else
 				m_borderColor = m_colorLookup[data & 0x07];
 		}
-		if (m_outPortFE.soundOut != ((data >> 4) & 1)) rp2040.fifo.push_nb(m_Z80Processor.tCount);
+		if (m_outPortFE.soundOut != ((data >> 4) & 1)) rp2040.fifo.push_nb(m_Z80Processor.tCount & 0x00FFFFFF | WR_PORT);
 		m_outPortFE.rawData = data;
 	}
 	if (!(port & 0x0001))
@@ -1075,7 +1076,6 @@ void ZXSpectrum::stepCB(BYTE opcode)
 void ZXSpectrum::stepED(BYTE opcode)
 {
 	BYTE bytetemp, value, lookup, initemp, initemp2, outitemp, outitemp2;
-
 	switch (opcode)
 	{
 	case 0x40:		/* IN B,(C) */
@@ -1525,7 +1525,6 @@ void ZXSpectrum::stepED(BYTE opcode)
 bool ZXSpectrum::stepDD(BYTE opcode)
 {
 	BYTE value, offset, bytetemp, opcode2, bytetempl, bytetemph;
-
 	switch (opcode)
 	{
 	case 0x09:		/* ADD IX,BC */
@@ -1961,7 +1960,6 @@ bool ZXSpectrum::stepDD(BYTE opcode)
 bool ZXSpectrum::stepFD(BYTE opcode)
 {
 	BYTE value, offset, bytetemp, opcode2, bytetempl, bytetemph;
-
 	switch (opcode)
 	{
 	case 0x09:		/* ADD IY,BC */
@@ -2397,7 +2395,6 @@ bool ZXSpectrum::stepFD(BYTE opcode)
 void ZXSpectrum::stepXXCB(BYTE opcode)
 {
 	BYTE bytetemp;
-
 	switch (opcode)
 	{
 	case 0x00:		/* LD B,RLC (REGISTER+dd) */
@@ -3527,7 +3524,6 @@ void ZXSpectrum::stepZ80()
 {
 	BYTE opcode, opcode2, last_Q, bytetemp, nn, add, carry, bytetempl, bytetemph;
 	WORD wordtemp, outtemp, intemp;
-
 	contendedAccess(PC, 4);
 	opcode = m_pZXMemory[PC];
 	PC++; R++;
@@ -4719,7 +4715,7 @@ void ZXSpectrum::loopZ80()
 	m_frameCounter = (++m_frameCounter) & 0x1F;
 	if (m_Z80Processor.intEnabledAt >= 0) m_Z80Processor.intEnabledAt -= LOOPCYCLES;
 	m_emulationTime = micros() - startTime;
-	while (rp2040.fifo.pop() != STOP_FRAME);
+	while (!(rp2040.fifo.pop() & STOP_FRAME));
 }
 
 void ZXSpectrum::startTape(BYTE* pBuffer, uint32_t bufferSize)
