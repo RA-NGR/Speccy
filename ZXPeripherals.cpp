@@ -10,6 +10,8 @@ bool ZXPeripherals::init()
 	m_pAlarmPool = alarm_pool_create_with_unused_hardware_alarm(16);
 	Wire1.setSDA(SDA_PIN); Wire1.setSCL(SCL_PIN);
 	Wire1.begin();
+	pinMode(SND_PIN, OUTPUT);
+	digitalWriteFast(SND_PIN, 0);
 	return true;
 }
 
@@ -21,8 +23,9 @@ void ZXPeripherals::update()
 	if (ctrlData & WR_PORT)
 	{
 		int val = (ctrlData & 0x00FFFFFF);
-		if (ctrlData & 0x00800000) val |= 0xFF000000;
-		m_ringBuffer[m_rbWrIndex] = val; m_rbWrIndex++;
+		if (ctrlData & 0x00800000) val |= 0xFF000000; // restore sign bit
+		m_ringBuffer[m_rbWrIndex] = val; 
+		m_rbWrIndex = (++m_rbWrIndex) & (SOUND_BUFFER_SIZE - 1);
 	}
 	if (ctrlData & RD_PORT)
 	{
@@ -39,7 +42,7 @@ bool ZXPeripherals::onTimer(struct repeating_timer* pTimer)
 	{
 		soundBit ^= HIGH;
 		digitalWriteFast(SND_PIN, soundBit);
-		pInstance->m_rbRdIndex++;
+		pInstance->m_rbRdIndex = (++pInstance->m_rbRdIndex) & (SOUND_BUFFER_SIZE - 1);
 	}
 	if (pInstance->m_cyclesDone < LOOPCYCLES) return true;
 	pInstance->m_cyclesDone -= LOOPCYCLES;

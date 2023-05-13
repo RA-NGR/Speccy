@@ -5,6 +5,7 @@
 #include "hardware/clocks.h"
 #include "hardware/adc.h"
 #include <pico/stdlib.h>
+#include <hardware/vreg.h>
 #include <LittleFS.h>
 #include <SD.h>
 #include <SPI.h>
@@ -51,9 +52,8 @@
 #define ENDSCREEN (62720 - 16)
 #define IRQ_LENGTH 32
 #define BORDER_BUFFER_SIZE 128
-#define SOUND_CLOCK 48 /* in us, 20 kHz should be enough */
-//#define SOUND_CLOCK 16
-//#define SOUND_BUFFER_SIZE 2048
+#define SOUND_CLOCK 8 /* in us */
+#define SOUND_BUFFER_SIZE 512
 // 109200 Hz sound timer Dividers are: 146 at 16 MHz, 73 at 8 MHz
 
 #define ROMFILENAME "/BASIC82.rom"

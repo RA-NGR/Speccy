@@ -31,10 +31,8 @@ int32_t tapePause = -1;
 
 void setup()
 {
+	//vreg_set_voltage(VREG_VOLTAGE_1_10);
 	//set_sys_clock_khz(266000, true);
-	//adc_init();
-	//adc_set_temp_sensor_enabled(true);
-	//adc_select_input(4);
 #if defined(DBG) || defined(KBD_EMULATED)
 	Serial.begin(115200);
 	delay(5000);
@@ -165,7 +163,7 @@ void loop()
 	{
 		uint32_t tmp;
 		//DBG_PRINTF("Core temp: %.2f°, FPS:%.1f, min:%.1f\n", 27.0 - (adc_read() * 0.0008056640625 - 0.706) / 0.001721, 1000000.0 / emulTime, 1000000.0 / maxTime);
-		DBG_PRINTF("Core temp: %.2f°, FPS:%.1f, min:%.1f\n", analogReadTemp(), 1000000.0 / emulTime, 1000000.0 / maxTime);
+		DBG_PRINTF("Core temp: %.2fC, FPS:%.1f, min:%.1f\n", analogReadTemp(), 1000000.0 / emulTime, 1000000.0 / maxTime);
 		loopCounter = 0;
 	}
 #ifdef KBD_EMULATED
