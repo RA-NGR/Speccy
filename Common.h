@@ -23,10 +23,10 @@
 #define SCL_PIN  27
 #define PIO_CLK_DIV   7
 #define PIO_CLK_FRACT 0
-#define TFT_REFRESHRATE 0x10 /* 119 Hz */
+//#define TFT_REFRESHRATE 0x10 /* 119 Hz */
 //#define TFT_REFRESHRATE 0x11 /* 112 Hz */
 //#define TFT_REFRESHRATE 0x12 /* 106 Hz */
-//#define TFT_REFRESHRATE 0x13 /* 100 Hz */
+#define TFT_REFRESHRATE 0x13 /* 100 Hz */
 //#define TFT_REFRESHRATE 0x14 /* 95 Hz	 */
 //#define TFT_REFRESHRATE 0x15 /* 90 Hz	 */
 //#define TFT_REFRESHRATE 0x16 /* 86 Hz	 */
@@ -40,7 +40,7 @@
 //#define TFT_REFRESHRATE 0x1E /* 63 Hz	 */
 //#define TFT_REFRESHRATE 0x1F /* 61 Hz	 */
 
-#define DMA_BUFF_SIZE 40
+#define DMA_BUFF_SIZE 30
 
 #define START_FRAME 0x10000000
 #define STOP_FRAME  0x20000000
@@ -53,8 +53,7 @@
 #define IRQ_LENGTH 32
 #define BORDER_BUFFER_SIZE 128
 #define SOUND_CLOCK 8 /* in us */
-#define SOUND_BUFFER_SIZE 512
-// 109200 Hz sound timer Dividers are: 146 at 16 MHz, 73 at 8 MHz
+#define SOUND_BUFFER_SIZE 256
 
 #define ROMFILENAME "/BASIC82.rom"
 //#define ROMFILENAME "/BASIC90v1.rom"

@@ -31,8 +31,8 @@ int32_t tapePause = -1;
 
 void setup()
 {
-	//vreg_set_voltage(VREG_VOLTAGE_1_10);
-	//set_sys_clock_khz(266000, true);
+//	vreg_set_voltage(VREG_VOLTAGE_1_15);
+	set_sys_clock_khz(250000, true);
 #if defined(DBG) || defined(KBD_EMULATED)
 	Serial.begin(115200);
 	delay(5000);
@@ -41,6 +41,7 @@ void setup()
 	delay(100);
 	g_zxEmulator.init(&g_mainDisplay);
 	g_zxEmulator.resetZ80();
+	DBG_PRINTF("Free mem: %d\n", rp2040.getFreeHeap());
 //	SD.begin(SS);
 
 }
@@ -161,16 +162,14 @@ void loop()
 	loopCounter++;
 	if (loopCounter > 89)
 	{
-		uint32_t tmp;
-		//DBG_PRINTF("Core temp: %.2f°, FPS:%.1f, min:%.1f\n", 27.0 - (adc_read() * 0.0008056640625 - 0.706) / 0.001721, 1000000.0 / emulTime, 1000000.0 / maxTime);
-		DBG_PRINTF("Core temp: %.2fC, FPS:%.1f, min:%.1f\n", analogReadTemp(), 1000000.0 / emulTime, 1000000.0 / maxTime);
+		DBG_PRINTF("Core temp: %.2f'C, FPS: %.1f (min: %.1f)\n", analogReadTemp(), 1000000.0 / emulTime, 1000000.0 / maxTime);
 		loopCounter = 0;
 	}
 #ifdef KBD_EMULATED
 	for (int i = 0; i < 8; i++)
 		g_zxEmulator.orPortVal(i, 0xBF);
 #endif // KBD_EMULATED
-	
+	while (!(rp2040.fifo.pop() & STOP_FRAME));
 }
 
 void setup1()

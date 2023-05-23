@@ -35,7 +35,9 @@ void ZXPeripherals::update()
 
 bool ZXPeripherals::onTimer(struct repeating_timer* pTimer)
 {
+	
 	static uint32_t soundBit = 0;
+//	noInterrupts();
 	ZXPeripherals* pInstance = (ZXPeripherals*)pTimer->user_data;
 	pInstance->m_cyclesDone += (SOUND_CLOCK / 8) * 28;
 	if (pInstance->m_rbRdIndex != pInstance->m_rbWrIndex && pInstance->m_ringBuffer[pInstance->m_rbRdIndex] <= pInstance->m_cyclesDone)
@@ -44,6 +46,7 @@ bool ZXPeripherals::onTimer(struct repeating_timer* pTimer)
 		digitalWriteFast(SND_PIN, soundBit);
 		pInstance->m_rbRdIndex = (++pInstance->m_rbRdIndex) & (SOUND_BUFFER_SIZE - 1);
 	}
+//	interrupts();
 	if (pInstance->m_cyclesDone < LOOPCYCLES) return true;
 	pInstance->m_cyclesDone -= LOOPCYCLES;
 	rp2040.fifo.push(STOP_FRAME);

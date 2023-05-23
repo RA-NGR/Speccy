@@ -120,13 +120,13 @@ void ZXSpectrum::processTape()
 	m_ZXTape.statesCount = m_tapeStates[m_ZXTape.tapeState].statesCount; // set state count
 }
 
-inline __attribute__((always_inline)) void ZXSpectrum::writeMem(WORD address, BYTE data)
+void __not_in_flash_func(ZXSpectrum::writeMem)(WORD address, BYTE data)
 {
 	contendedAccess(address, 3);
 	if (address >= 0x4000) m_pZXMemory[address] = data;
 }
 
-inline __attribute__((always_inline)) ZXSpectrum::BYTE ZXSpectrum::readMem(WORD address)
+ZXSpectrum::BYTE __not_in_flash_func(ZXSpectrum::readMem)(WORD address)
 {
 	contendedAccess(address, 3);
 	return m_pZXMemory[address];
@@ -3520,7 +3520,7 @@ void ZXSpectrum::stepXXCB(BYTE opcode)
 	}
 }
 
-void ZXSpectrum::stepZ80()
+void __not_in_flash_func(ZXSpectrum::stepZ80)()
 {
 	BYTE opcode, opcode2, last_Q, bytetemp, nn, add, carry, bytetempl, bytetemph;
 	WORD wordtemp, outtemp, intemp;
@@ -4715,7 +4715,7 @@ void ZXSpectrum::loopZ80()
 	m_frameCounter = (++m_frameCounter) & 0x1F;
 	if (m_Z80Processor.intEnabledAt >= 0) m_Z80Processor.intEnabledAt -= LOOPCYCLES;
 	m_emulationTime = micros() - startTime;
-	while (!(rp2040.fifo.pop() & STOP_FRAME));
+	//while (!(rp2040.fifo.pop() & STOP_FRAME));
 }
 
 void ZXSpectrum::startTape(BYTE* pBuffer, uint32_t bufferSize)
