@@ -63,8 +63,10 @@ bool readTAPSection(File& file)
 
 void loop()
 {
+#ifdef DBG
 	static uint32_t loopCounter = 0;
 	static uint32_t maxTime = 0;
+#endif // DBG
 	if (tapActive && !g_zxEmulator.tapeActive())
 	{
 		if (tapePause == -1) tapePause = millis();
@@ -90,7 +92,10 @@ void loop()
 		{
 			g_zxEmulator.resetZ80();
 			Serial.flush();
+#ifdef DBG
 			maxTime = 0;
+			g_zxPeripherals.resetMinCycles();
+#endif // DBG
 			break;
 		}
 #endif // KBD_EMULATED
@@ -128,11 +133,13 @@ void loop()
 			Serial.flush();
 			break;
 		}
+#ifdef DBG
 		if (zxKey == '*')
 		{
 			maxTime = 0;
 			Serial.flush();
 		}
+#endif // DBG
 #ifndef KBD_EMULATED
 		if (zxKey == '1')
 #else
@@ -157,19 +164,21 @@ void loop()
 #endif // KBD_EMULATED
 	}
 	g_zxEmulator.loopZ80();
+#ifdef DBG
 	uint32_t emulTime = g_zxEmulator.getEmulationTime();
 	if (emulTime > maxTime) maxTime = emulTime;
 	loopCounter++;
 	if (loopCounter > 89)
 	{
-		DBG_PRINTF("Core temp: %.2f'C, FPS: %.1f (min: %.1f)\n", analogReadTemp(), 1000000.0 / emulTime, 1000000.0 / maxTime);
+		DBG_PRINTF("Core temp: %.2f'C, FPS: %3.1f (min: %3.1f), min cycles: %d\n", analogReadTemp(), 1000000.0 / emulTime, 1000000.0 / maxTime, g_zxPeripherals.getMinCycles());
 		loopCounter = 0;
 	}
+#endif // DBG
 #ifdef KBD_EMULATED
 	for (int i = 0; i < 8; i++)
 		g_zxEmulator.orPortVal(i, 0xBF);
 #endif // KBD_EMULATED
-	while (!(rp2040.fifo.pop() & STOP_FRAME));
+//	while (!(rp2040.fifo.pop() & STOP_FRAME));
 }
 
 void setup1()

@@ -52,8 +52,8 @@
 #define ENDSCREEN (62720 - 16)
 #define IRQ_LENGTH 32
 #define BORDER_BUFFER_SIZE 128
-#define SOUND_CLOCK 8 /* in us */
-#define SOUND_BUFFER_SIZE 256
+#define SOUND_CLOCK 12 /* in us */
+#define SOUND_BUFFER_SIZE 1024
 
 #define ROMFILENAME "/BASIC82.rom"
 //#define ROMFILENAME "/BASIC90v1.rom"

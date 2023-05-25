@@ -4685,9 +4685,10 @@ void ZXSpectrum::resetZ80()
 
 void ZXSpectrum::loopZ80()
 {
-	uint64_t startTime = micros(); 
+#ifdef DBG
+	uint64_t startTime = micros();
+#endif // DBG
 	int32_t usedCycles;
-
 	rp2040.fifo.push(START_FRAME);
 	intZ80();
 	while (m_Z80Processor.tCount < LOOPCYCLES)
@@ -4714,8 +4715,10 @@ void ZXSpectrum::loopZ80()
 	m_Z80Processor.tCount -= LOOPCYCLES;
 	m_frameCounter = (++m_frameCounter) & 0x1F;
 	if (m_Z80Processor.intEnabledAt >= 0) m_Z80Processor.intEnabledAt -= LOOPCYCLES;
+#ifdef DBG
 	m_emulationTime = micros() - startTime;
-	//while (!(rp2040.fifo.pop() & STOP_FRAME));
+#endif // DBG
+	while (!(rp2040.fifo.pop() & STOP_FRAME));
 }
 
 void ZXSpectrum::startTape(BYTE* pBuffer, uint32_t bufferSize)
