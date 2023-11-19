@@ -13,6 +13,54 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{def12a13-34dd-4d9d-a4f0-c5aafc99db4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly">
+      <UniqueIdentifier>{803e55bd-a999-4f34-9d20-8beaf8116703}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\core">
+      <UniqueIdentifier>{233db62e-37db-4678-a2b4-9cb23573bbf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\core\api">
+      <UniqueIdentifier>{c87c8366-3022-443b-bd17-57ac4182a389}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\core\api\deprecated">
+      <UniqueIdentifier>{e54c268a-add8-4774-b2aa-7a8d4bff1b0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\core\api\deprecated-avr-comp">
+      <UniqueIdentifier>{147ef6fe-e2b7-40bc-a51a-3d35f8ab82ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\core\api\deprecated-avr-comp\avr">
+      <UniqueIdentifier>{02d27d6c-131a-46d6-88d9-828f5421453b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\core\libb64">
+      <UniqueIdentifier>{24eecc2b-362c-4f58-b357-fbf5051d28eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\core\sdkoverride">
+      <UniqueIdentifier>{cc43a77e-5fe6-4063-b068-a573884fea0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries">
+      <UniqueIdentifier>{42816345-4aa1-46c0-aa90-e1b44be65c39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\LittleFS">
+      <UniqueIdentifier>{8e22e092-d1fe-4591-97d8-b5be40559530}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\SD">
+      <UniqueIdentifier>{c34a730a-8e22-44ce-bc3f-8900d936804b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\SDFS">
+      <UniqueIdentifier>{8e1d3b50-7167-4266-87ee-f2705e504e3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\SPI">
+      <UniqueIdentifier>{9963fab9-504d-4440-8ce8-dac9efa835bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\ESP8266SdFat">
+      <UniqueIdentifier>{5c4c7c54-2239-4863-b663-7a443419ae8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\Wire">
+      <UniqueIdentifier>{1aa0da60-f244-434c-94ad-f4a76aef68e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Speccy.ino" />
@@ -24,6 +72,279 @@
     </ClCompile>
     <ClCompile Include="ZXPeripherals.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\Bootsel.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\CoreMutex.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\cyw43_wrappers.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\delay.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\FS.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\lock.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\lwip_wrap.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\main.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\malloc-lock.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\posix.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\RP2040Support.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\RP2040USB.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\SerialPIO.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\SerialUART.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\SerialUSB.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\stdlib_noniso.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\Tone.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\wiring_analog.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\wiring_digital.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\wiring_private.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\wiring_pulse.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\wiring_shift.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\WMath.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\_freertos.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\Common.cpp">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\IPAddress.cpp">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\PluggableUSB.cpp">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\Print.cpp">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\Stream.cpp">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\String.cpp">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\libb64\cdecode.cpp">
+      <Filter>src\_micro-api-readonly\core\libb64</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\libb64\cencode.cpp">
+      <Filter>src\_micro-api-readonly\core\libb64</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\sdkoverride\btstack_flash_bank.cpp">
+      <Filter>src\_micro-api-readonly\core\sdkoverride</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\lib\littlefs\lfs.c">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\lib\littlefs\lfs_util.c">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\lib\littlefs\bd\lfs_filebd.c">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\lib\littlefs\bd\lfs_rambd.c">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\lib\littlefs\bd\lfs_testbd.c">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\src\lfs.c">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\src\lfs_util.c">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\src\LittleFS.cpp">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SD\src\SD.cpp">
+      <Filter>src\_micro-api-readonly\libraries\SD</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SDFS\src\SDFS.cpp">
+      <Filter>src\_micro-api-readonly\libraries\SDFS</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SPI\src\SPI.cpp">
+      <Filter>src\_micro-api-readonly\libraries\SPI</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\extras\attic\PrintBasic.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\extras\attic\SysCallBareUno.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FreeStack.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\MinimumSerial.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\FmtNumber.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\FsCache.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\FsDateTime.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\FsName.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\FsStructs.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\FsUtf.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\upcase.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\ExFatLib\ExFatDbg.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\ExFatLib\ExFatFile.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\ExFatLib\ExFatFilePrint.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\ExFatLib\ExFatFileWrite.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\ExFatLib\ExFatFormatter.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\ExFatLib\ExFatName.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\ExFatLib\ExFatPartition.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\ExFatLib\ExFatVolume.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FatLib\FatDbg.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FatLib\FatFile.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FatLib\FatFileLFN.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FatLib\FatFilePrint.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FatLib\FatFileSFN.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FatLib\FatFormatter.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FatLib\FatName.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FatLib\FatPartition.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FatLib\FatVolume.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FsLib\FsFile.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FsLib\FsNew.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FsLib\FsVolume.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\iostream\istream.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\iostream\ostream.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\iostream\StdioStream.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\iostream\StreamBaseClass.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SdCard\SdCardInfo.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SdCard\SdioTeensy.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SdCard\SdSpiCard.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SpiDriver\SdSpiArtemis.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SpiDriver\SdSpiChipSelect.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SpiDriver\SdSpiDue.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SpiDriver\SdSpiESP.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SpiDriver\SdSpiParticle.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SpiDriver\SdSpiSTM32.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SpiDriver\SdSpiSTM32Core.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SpiDriver\SdSpiTeensy3.cpp">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\Wire\src\Wire.cpp">
+      <Filter>src\_micro-api-readonly\libraries\Wire</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -45,5 +366,498 @@
     <ClInclude Include="ZXPeripherals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\Arduino.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\Bootsel.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\ccount.pio.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\Client.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\CoreMutex.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\debug_internal.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\FS.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\FSImpl.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\HardwareSerial.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\Interrupts.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\IPAddress.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\pgmspace.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\pio_uart.pio.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\PolledTimeout.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\Print.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\Printable.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\RP2040Support.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\RP2040USB.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\RP2040Version.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\SerialPIO.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\SerialUART.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\SerialUSB.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\Server.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\SoftwareSerial.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\stdlib_noniso.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\Stream.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\StreamString.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\tone2.pio.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\Udp.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\wiring_private.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\WString.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\_freertos.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\ArduinoAPI.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\Binary.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\Client.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\Common.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\Compat.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\HardwareI2C.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\HardwareSerial.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\HardwareSPI.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\Interrupts.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\IPAddress.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\itoa.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\PluggableUSB.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\Print.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\Printable.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\RingBuffer.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\Server.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\Stream.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\String.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\Udp.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\USBAPI.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\WCharacter.h">
+      <Filter>src\_micro-api-readonly\core\api</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\deprecated\Client.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\deprecated\HardwareSerial.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\deprecated\IPAddress.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\deprecated\Print.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\deprecated\Printable.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\deprecated\Server.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\deprecated\Stream.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\deprecated\Udp.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\deprecated\WString.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\deprecated-avr-comp\avr\dtostrf.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated-avr-comp\avr</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\deprecated-avr-comp\avr\interrupt.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated-avr-comp\avr</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\api\deprecated-avr-comp\avr\pgmspace.h">
+      <Filter>src\_micro-api-readonly\core\api\deprecated-avr-comp\avr</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\libb64\cdecode.h">
+      <Filter>src\_micro-api-readonly\core\libb64</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\libb64\cencode.h">
+      <Filter>src\_micro-api-readonly\core\libb64</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\cores\rp2040\sdkoverride\tusb_absmouse.h">
+      <Filter>src\_micro-api-readonly\core\sdkoverride</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\variants\rpipico\pins_arduino.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\lib\littlefs\lfs.h">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\lib\littlefs\lfs_util.h">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\lib\littlefs\bd\lfs_filebd.h">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\lib\littlefs\bd\lfs_rambd.h">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\lib\littlefs\bd\lfs_testbd.h">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\src\LittleFS.h">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SD\src\SD.h">
+      <Filter>src\_micro-api-readonly\libraries\SD</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SDFS\src\SDFS.h">
+      <Filter>src\_micro-api-readonly\libraries\SDFS</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SPI\src\SPI.h">
+      <Filter>src\_micro-api-readonly\libraries\SPI</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\extras\attic\PrintBasic.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\extras\attic\PrintTemplates.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\BufferedPrint.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FreeStack.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\MinimumSerial.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\RingBuf.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SdFat.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SdFatConfig.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\sdios.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\ArduinoFiles.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\BlockDevice.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\BlockDeviceInterface.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\CompileDateTime.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\DebugMacros.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\FmtNumber.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\FsApiConstants.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\FsCache.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\FsDateTime.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\FsName.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\FsStructs.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\FsUtf.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\SysCall.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\common\upcase.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\DigitalIO\DigitalPin.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\DigitalIO\SoftSPI.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\DigitalIO\boards\AvrDevelopersGpioPinMap.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\DigitalIO\boards\BobuinoGpioPinMap.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\DigitalIO\boards\GpioPinMap.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\DigitalIO\boards\LeonardoGpioPinMap.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\DigitalIO\boards\MegaGpioPinMap.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\DigitalIO\boards\SleepingBeautyGpioPinMap.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\DigitalIO\boards\Standard1284GpioPinMap.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\DigitalIO\boards\Teensy2GpioPinMap.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\DigitalIO\boards\Teensy2ppGpioPinMap.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\DigitalIO\boards\UnoGpioPinMap.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\ExFatLib\ExFatConfig.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\ExFatLib\ExFatFile.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\ExFatLib\ExFatFormatter.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\ExFatLib\ExFatLib.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\ExFatLib\ExFatPartition.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\ExFatLib\ExFatVolume.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FatLib\FatFile.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FatLib\FatFormatter.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FatLib\FatLib.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FatLib\FatPartition.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FatLib\FatVolume.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FsLib\FsFile.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FsLib\FsLib.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FsLib\FsNew.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\FsLib\FsVolume.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\iostream\ArduinoStream.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\iostream\bufstream.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\iostream\fstream.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\iostream\ios.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\iostream\iostream.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\iostream\istream.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\iostream\ostream.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\iostream\StdioStream.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SdCard\SdCard.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SdCard\SdCardInfo.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SdCard\SdCardInterface.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SdCard\SdioCard.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SdCard\SdioTeensy.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SdCard\SdSpiCard.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SpiDriver\SdSpiArduinoDriver.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SpiDriver\SdSpiAvr.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SpiDriver\SdSpiBareUnoDriver.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SpiDriver\SdSpiBaseClass.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SpiDriver\SdSpiDriver.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SpiDriver\SdSpiLibDriver.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\SpiDriver\SdSpiSoftDriver.h">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\Wire\src\Wire.h">
+      <Filter>src\_micro-api-readonly\libraries\Wire</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\keywords.txt">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </Text>
+    <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SD\keywords.txt">
+      <Filter>src\_micro-api-readonly\libraries\SD</Filter>
+    </Text>
+    <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SPI\keywords.txt">
+      <Filter>src\_micro-api-readonly\libraries\SPI</Filter>
+    </Text>
+    <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\extras\USB_Host_Shield\readme.txt">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </Text>
+    <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\extras\USB_Host_Shield\UsbHostShieldDiff.txt">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </Text>
+    <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\DigitalIO\readme.txt">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </Text>
+    <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\Wire\keywords.txt">
+      <Filter>src\_micro-api-readonly\libraries\Wire</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\LittleFS</Filter>
+    </None>
+    <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SD\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\SD</Filter>
+    </None>
+    <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SDFS\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\SDFS</Filter>
+    </None>
+    <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SPI\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\SPI</Filter>
+    </None>
+    <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\ESP8266SdFat</Filter>
+    </None>
+    <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\Wire\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\Wire</Filter>
+    </None>
   </ItemGroup>
 </Project>

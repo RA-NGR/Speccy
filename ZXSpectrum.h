@@ -195,8 +195,8 @@ class ZXSpectrum
 	void drawLine(int posY);
 	int8_t intZ80();
 	void processTape();
-	void writeMem(WORD address, BYTE data);
-	BYTE readMem(WORD address);
+	void __not_in_flash_func(writeMem)(WORD address, BYTE data);
+	BYTE __not_in_flash_func(readMem)(WORD address);
 	BYTE unattachedPort();
 	BYTE readPort(WORD port);
 	void writePort(WORD port, BYTE data);
@@ -205,7 +205,7 @@ class ZXSpectrum
 	bool stepDD(BYTE opcode);
 	bool stepFD(BYTE opcode);
 	void stepXXCB(BYTE opcode);
-	void stepZ80();
+	void __not_in_flash_func(stepZ80)();
 public:
 	ZXSpectrum() {};
 	~ZXSpectrum();

@@ -2,10 +2,17 @@
 #include "Display.h"
 #include "ZXSpectrum.h"
 #include "ZXPeripherals.h"
+#include "fonts.h"
 
 Display g_mainDisplay;
 ZXSpectrum g_zxEmulator;
 ZXPeripherals g_zxPeripherals;
+enum systemMode
+{
+	modeEmulator,
+	modeBrowser
+};
+enum systemMode g_sysMode = modeEmulator;
 
 #ifdef KBD_EMULATED
 struct
@@ -63,122 +70,130 @@ bool readTAPSection(File& file)
 
 void loop()
 {
-#ifdef DBG
-	static uint32_t loopCounter = 0;
-	static uint32_t maxTime = 0;
-#endif // DBG
-	if (tapActive && !g_zxEmulator.tapeActive())
+	if (g_sysMode == modeEmulator)
 	{
-		if (tapePause == -1) tapePause = millis();
-		if (millis() - tapePause > 500)
+#ifdef DBG
+		static uint32_t loopCounter = 0;
+		static uint32_t maxTime = 0;
+#endif // DBG
+		if (tapActive && !g_zxEmulator.tapeActive())
 		{
-			if (!readTAPSection(tapFile))
+			if (tapePause == -1) tapePause = millis();
+			if (millis() - tapePause > 500)
 			{
-				tapFile.close(); tapActive = false;
-				SD.end();
-			}
-			else
-			{
-				g_zxEmulator.startTape(tapBuffer, tapSize);
-				tapePause = -1;
+				if (!readTAPSection(tapFile))
+				{
+					tapFile.close(); tapActive = false;
+					SD.end();
+				}
+				else
+				{
+					g_zxEmulator.startTape(tapBuffer, tapSize);
+					tapePause = -1;
+				}
 			}
 		}
-	}
-	int zxKey;
-	while ((zxKey = Serial.read()) != -1)
-	{
+		int zxKey;
+		while ((zxKey = Serial.read()) != -1)
+		{
 #ifdef KBD_EMULATED
-		if (zxKey == '#')
-		{
-			g_zxEmulator.resetZ80();
-			Serial.flush();
-#ifdef DBG
-			maxTime = 0;
-			g_zxPeripherals.resetMinCycles();
-#endif // DBG
-			break;
-		}
-#endif // KBD_EMULATED
-		if (zxKey == '^')
-		{
-			g_zxEmulator.stopTape();
-			tapFile.close(); tapActive = false; tapePause = -1;
-			Serial.flush();
-			break;
-		}
-		if (zxKey == '&')
-		{
-			String fileName = "/Games/";
-			while ((zxKey = Serial.read()) != -1) fileName += (char)zxKey;
-			if (!SD.begin(SS))
+			if (zxKey == '#')
 			{
-				DBG_PRINTLN("SDC Mount Failed");
+				if ((zxKey = Serial.read()) != -1)
+					switch (zxKey)
+					{
+					case '1': // F1
+						g_zxEmulator.tape1X();
+						break;
+					case '2':
+						g_zxEmulator.tape2X();
+						break;
+					case '3':
+						break;
+					case '4':
+						g_zxEmulator.resetZ80();
+						break;
+					case '5':
+						maxTime = 0;
+						break;
+					case 'r':
+						g_zxEmulator.orPortVal(8, 0b00000001);
+						break;
+					case 'l':
+						g_zxEmulator.orPortVal(8, 0b00000010);
+						break;
+					case 'd':
+						g_zxEmulator.orPortVal(8, 0b00000100);
+						break;
+					case 'u':
+						g_zxEmulator.orPortVal(8, 0b00001000);
+						break;
+					case 'f':
+						g_zxEmulator.orPortVal(8, 0b00010000);
+						break;
+					default:
+						break;
+					}
+				Serial.flush();
 				break;
 			}
-			if (!SD.exists(fileName))
+#endif // KBD_EMULATED
+			if (zxKey == '^')
 			{
-				DBG_PRINTF("File %s not found\n", fileName);
+				g_zxEmulator.stopTape();
+				tapFile.close(); tapActive = false; tapePause = -1;
+				Serial.flush();
 				break;
 			}
-			if (!(tapFile = SD.open(fileName, "r")))
+			if (zxKey == '&')
 			{
-				DBG_PRINTLN("Error opening file.");
+				String fileName = "/Games/";
+				while ((zxKey = Serial.read()) != -1) fileName += (char)zxKey;
+				if (!SD.begin(SS))
+				{
+					DBG_PRINTLN("SDC Mount Failed");
+					break;
+				}
+				if (!SD.exists(fileName))
+				{
+					DBG_PRINTF("File %s not found\n", fileName);
+					break;
+				}
+				if (!(tapFile = SD.open(fileName, "r")))
+				{
+					DBG_PRINTLN("Error opening file.");
+					break;
+				}
+				if (readTAPSection(tapFile))
+				{
+					tapActive = true; tapePause = -1;
+					g_zxEmulator.startTape(tapBuffer, tapSize);
+				}
+				Serial.flush();
 				break;
 			}
-			if (readTAPSection(tapFile))
-			{
-				tapActive = true; tapePause = -1;
-				g_zxEmulator.startTape(tapBuffer, tapSize);
-			}
-			Serial.flush();
-			break;
+#ifdef KBD_EMULATED
+			for (int i = 0; i < 40; i++) if (keyMap[i].chr == zxKey)
+				g_zxEmulator.andPortVal(keyMap[i].portIdx, keyMap[i].bits);
+#endif // KBD_EMULATED
 		}
+		g_zxEmulator.loopZ80();
 #ifdef DBG
-		if (zxKey == '*')
+		uint32_t emulTime = g_zxEmulator.getEmulationTime();
+		if (emulTime > maxTime) maxTime = emulTime;
+		loopCounter++;
+		if (loopCounter > 89)
 		{
-			maxTime = 0;
-			Serial.flush();
+			DBG_PRINTF("Core temp: %.2f'C, FPS: %3.1f (min: %3.1f)\n", analogReadTemp(), 1000000.0 / emulTime, 1000000.0 / maxTime);
+			loopCounter = 0;
 		}
 #endif // DBG
-#ifndef KBD_EMULATED
-		if (zxKey == '1')
-#else
-		if (zxKey == '!')
-#endif // !KBD_EMULATED
-		{
-			g_zxEmulator.tape1X();
-			Serial.flush();
-		}
-#ifndef KBD_EMULATED
-		if (zxKey == '2')
-#else
-		if (zxKey == '@')
-#endif // !KBD_EMULATED
-		{
-			g_zxEmulator.tape2X();
-			Serial.flush();
-		}
 #ifdef KBD_EMULATED
-		for (int i = 0; i < 40; i++) if (keyMap[i].chr == zxKey)
-			g_zxEmulator.andPortVal(keyMap[i].portIdx, keyMap[i].bits);
+		for (int i = 0; i < 9; i++)
+			g_zxEmulator.orPortVal(i, 0xBF);
+		g_zxEmulator.andPortVal(8, 0x0);
 #endif // KBD_EMULATED
 	}
-	g_zxEmulator.loopZ80();
-#ifdef DBG
-	uint32_t emulTime = g_zxEmulator.getEmulationTime();
-	if (emulTime > maxTime) maxTime = emulTime;
-	loopCounter++;
-	if (loopCounter > 89)
-	{
-		DBG_PRINTF("Core temp: %.2f'C, FPS: %3.1f (min: %3.1f), min cycles: %d\n", analogReadTemp(), 1000000.0 / emulTime, 1000000.0 / maxTime, g_zxPeripherals.getMinCycles());
-		loopCounter = 0;
-	}
-#endif // DBG
-#ifdef KBD_EMULATED
-	for (int i = 0; i < 8; i++)
-		g_zxEmulator.orPortVal(i, 0xBF);
-#endif // KBD_EMULATED
-//	while (!(rp2040.fifo.pop() & STOP_FRAME));
 }
 
 void setup1()
