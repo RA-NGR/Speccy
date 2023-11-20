@@ -199,6 +199,7 @@ void loop()
 
 void setup1()
 {
+	mutex_init(&g_portMutex);
 	g_zxPeripherals.init();
 }
 

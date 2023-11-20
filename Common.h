@@ -69,3 +69,5 @@
 #define DBG_PRINTLN(a)
 #define DBG_PRINTF //
 #endif // DBG
+
+static mutex_t g_portMutex;

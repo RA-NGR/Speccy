@@ -52,6 +52,9 @@ void ZXPeripherals::update()
 		writeReg(0x14, decodedPort);
 		uint8_t portVal = readPort();
 		rp2040.fifo.push_nb((uint32_t)portVal | bitNum << 8 | RD_PORT);
+		//mutex_init(&portMutex);
+		//mutex_enter_blocking(&portMutex);
+		//mutex_exit(&portMutex);
 		//g_zxEmulator.orPortVal(bitNum, 0x1F);
 		//g_zxEmulator.andPortVal(bitNum, portVal);
 //		if (portVal != 0x1F) DBG_PRINTF("%02X - %02X\n", (uint8_t)ctrlData, portVal);
