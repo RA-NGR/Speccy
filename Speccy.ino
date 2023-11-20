@@ -2,7 +2,7 @@
 #include "Display.h"
 #include "ZXSpectrum.h"
 #include "ZXPeripherals.h"
-#include "fonts.h"
+//#include "fonts.h"
 
 Display g_mainDisplay;
 ZXSpectrum g_zxEmulator;
@@ -12,7 +12,7 @@ enum systemMode
 	modeEmulator,
 	modeBrowser
 };
-enum systemMode g_sysMode = modeEmulator;
+enum systemMode g_sysMode = systemMode::modeEmulator;
 
 #ifdef KBD_EMULATED
 struct
@@ -49,6 +49,7 @@ void setup()
 	g_zxEmulator.init(&g_mainDisplay);
 	g_zxEmulator.resetZ80();
 	DBG_PRINTF("Free mem: %d\n", rp2040.getFreeHeap());
+//	DBG_PRINTLN(g_zxPeripherals.check());
 //	SD.begin(SS);
 
 }

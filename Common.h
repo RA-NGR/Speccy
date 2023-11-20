@@ -12,15 +12,15 @@
 #include <Wire.h>
 
 #define DBG
-#define KBD_EMULATED
+//#define KBD_EMULATED
 
 #define TFT_WR   20		/* Write strobe pin */
 #define TFT_DC   21		/* Data Command control pin */
 
 #define TFT_DATA  0		/* Data bus start pin */
 #define SND_PIN  22		/* Sound pin */
-#define SDA_PIN  26
-#define SCL_PIN  27
+//#define SDA_PIN  26
+//#define SCL_PIN  27
 #define PIO_CLK_DIV   7
 #define PIO_CLK_FRACT 0
 //#define TFT_REFRESHRATE 0x10 /* 119 Hz */
