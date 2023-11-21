@@ -172,8 +172,8 @@ ZXSpectrum::BYTE ZXSpectrum::readPort(WORD port)
 	contendedAccess(port, 1);
 	if (!(port & 0x0001))
 	{
-		contendedAccess(CONTENDED, 2);
 		rp2040.fifo.push_nb((uint32_t)(port >> 8) | RD_PORT);
+		contendedAccess(CONTENDED, 2);
 		//		retVal &= (m_inPortFE[7] | 0xBF); // Preserve tape bit
 		for (int i = 0; i < 8; i++) 
 			if (!((port >> (i + 8)) & 0x01)) retVal = m_inPortFE[i];
