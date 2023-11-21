@@ -2,6 +2,8 @@
 #include "ZXSpectrum.h"
 
 extern ZXSpectrum g_zxEmulator;
+extern critical_section g_portLock;
+
 
 ZXPeripherals::~ZXPeripherals()
 {
@@ -51,12 +53,11 @@ void ZXPeripherals::update()
 		uint8_t decodedPort = ((uint8_t)ctrlData & 0x0F) << 4 | ((uint8_t)ctrlData & 0xF0) >> 4;
 		writeReg(0x14, decodedPort);
 		uint8_t portVal = readPort();
-		rp2040.fifo.push_nb((uint32_t)portVal | bitNum << 8 | RD_PORT);
-		//mutex_init(&portMutex);
-		//mutex_enter_blocking(&portMutex);
-		//mutex_exit(&portMutex);
-		//g_zxEmulator.orPortVal(bitNum, 0x1F);
-		//g_zxEmulator.andPortVal(bitNum, portVal);
+		//rp2040.fifo.push_nb((uint32_t)portVal | bitNum << 8 | RD_PORT);
+		critical_section_enter_blocking(&g_portLock);
+		g_zxEmulator.orPortVal(bitNum, 0x1F);
+		g_zxEmulator.andPortVal(bitNum, portVal);
+		critical_section_exit(&g_portLock);
 //		if (portVal != 0x1F) DBG_PRINTF("%02X - %02X\n", (uint8_t)ctrlData, portVal);
 
 	}

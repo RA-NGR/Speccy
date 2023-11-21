@@ -7,6 +7,7 @@
 Display g_mainDisplay;
 ZXSpectrum g_zxEmulator;
 ZXPeripherals g_zxPeripherals;
+critical_section g_portLock; 
 enum systemMode
 {
 	modeEmulator,
@@ -44,6 +45,7 @@ void setup()
 	Serial.begin(115200);
 	delay(5000);
 #endif // DBG || KBD_EMULATED
+	critical_section_init(&g_portLock);
 	g_mainDisplay.init();
 	delay(100);
 	g_zxEmulator.init(&g_mainDisplay);
@@ -199,7 +201,7 @@ void loop()
 
 void setup1()
 {
-	mutex_init(&g_portMutex);
+//	mutex_init(&g_portMutex);
 	g_zxPeripherals.init();
 }
 

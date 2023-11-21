@@ -1,6 +1,8 @@
 #include "ZXSpectrum.h"
 #include "ZXMacros.h"
 
+extern critical_section g_portLock;
+
 ZXSpectrum::~ZXSpectrum()
 {
 	free(m_pZXMemory);
@@ -104,7 +106,9 @@ int8_t ZXSpectrum::intZ80()
 
 void ZXSpectrum::processTape()
 {
+	critical_section_enter_blocking(&g_portLock);
 	for (int i = 0; i < 8; i++) m_inPortFE[i] ^= 0x40;
+	critical_section_exit(&g_portLock);
 	m_ZXTape.statesCount--;
 	m_ZXTape.stateCycles = m_tapeStates[m_ZXTape.tapeState].stateCycles + m_ZXTape.stateCycles; // restore state cycles
 	if (m_ZXTape.statesCount > 0) return;
@@ -172,11 +176,7 @@ ZXSpectrum::BYTE ZXSpectrum::readPort(WORD port)
 		rp2040.fifo.push_nb((uint32_t)(port >> 8) | RD_PORT);
 		//		retVal &= (m_inPortFE[7] | 0xBF); // Preserve tape bit
 		for (int i = 0; i < 8; i++) 
-			if (!((port >> (i + 8)) & 0x01))
-			{
-				retVal = m_inPortFE[i];
-				m_inPortFE[i] |= 0x1F;
-			}
+			if (!((port >> (i + 8)) & 0x01)) retVal = m_inPortFE[i];
 	}
 	else
 	{
@@ -4725,16 +4725,16 @@ void ZXSpectrum::loopZ80()
 	m_emulationTime = micros() - startTime;
 #endif // DBG
 	uint32_t ctrlData;
-	while (true)
-	{
-		ctrlData = rp2040.fifo.pop();
-		if (ctrlData & STOP_FRAME) break;
-		if (ctrlData & RD_PORT)
-		{
-			uint8_t portNum = (ctrlData >> 8) & 0x07, portVal = (uint8_t)ctrlData;
-			m_inPortFE[portNum] &= ctrlData;
-		}
-	}
+	while (!(rp2040.fifo.pop() & STOP_FRAME));
+	//{
+	//	ctrlData = rp2040.fifo.pop();
+	//	if (ctrlData & STOP_FRAME) break;
+	//	if (ctrlData & RD_PORT)
+	//	{
+	//		uint8_t portNum = (ctrlData >> 8) & 0x07, portVal = (uint8_t)ctrlData;
+	//		m_inPortFE[portNum] &= ctrlData;
+	//	}
+	//}
 }
 
 void ZXSpectrum::startTape(BYTE* pBuffer, uint32_t bufferSize)
