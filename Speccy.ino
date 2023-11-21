@@ -180,6 +180,15 @@ void loop()
 				g_zxEmulator.andPortVal(keyMap[i].portIdx, keyMap[i].bits);
 #endif // KBD_EMULATED
 		}
+#ifndef KBD_EMULATED
+//		critical_section_enter_blocking(&g_portLock);
+//		for (int i = 0; i < 8; i++)
+		{
+//			DBG_PRINTF("%i - %02X\n", i, g_zxPeripherals.m_portData[i]);
+//			g_zxEmulator.andPortVal(0, g_zxPeripherals.m_portData[0]);
+		}
+//		critical_section_exit(&g_portLock);
+#endif // !KBD_EMULATED
 		g_zxEmulator.loopZ80();
 #ifdef DBG
 		uint32_t emulTime = g_zxEmulator.getEmulationTime();

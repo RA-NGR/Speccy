@@ -17,6 +17,7 @@ public:
 	bool init();
 	void update();
 	uint8_t check();
+	uint8_t m_portData[10] = { 0 };
 private:
 	static bool onTimer(struct repeating_timer* timer);
 };

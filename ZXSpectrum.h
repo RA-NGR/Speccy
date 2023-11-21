@@ -3,7 +3,6 @@
 #include "Common.h"
 #include "Display.h"
 
-
 class ZXSpectrum
 {
 	const uint16_t m_colorLookup[16] = { 0x0000, 0x1700, 0x00B8, 0x17B8, 0xE005, 0xF705, 0xE0BD, 0xF7BD,
@@ -190,7 +189,7 @@ class ZXSpectrum
 		};
 		uint8_t rawData;
 	} m_outPortFE;
-	BYTE m_inPortFE[9] = { 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0x00 }; // 8 - kempston
+	BYTE  m_inPortFE[9] = {0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0x00}; // 8 - kempston
 	Display* m_pDisplayInstance;
 	void drawLine(int posY);
 	int8_t intZ80();

@@ -1,7 +1,10 @@
 #include "ZXSpectrum.h"
 #include "ZXMacros.h"
 
+#include "ZXPeripherals.h"
+
 extern critical_section g_portLock;
+extern ZXPeripherals g_zxPeripherals;
 
 ZXSpectrum::~ZXSpectrum()
 {
@@ -124,13 +127,13 @@ void ZXSpectrum::processTape()
 	m_ZXTape.statesCount = m_tapeStates[m_ZXTape.tapeState].statesCount; // set state count
 }
 
-void __not_in_flash_func(ZXSpectrum::writeMem)(WORD address, BYTE data)
+void ZXSpectrum::writeMem(WORD address, BYTE data)
 {
 	contendedAccess(address, 3);
 	if (address >= 0x4000) m_pZXMemory[address] = data;
 }
 
-ZXSpectrum::BYTE __not_in_flash_func(ZXSpectrum::readMem)(WORD address)
+ZXSpectrum::BYTE ZXSpectrum::readMem(WORD address)
 {
 	contendedAccess(address, 3);
 	return m_pZXMemory[address];
@@ -172,11 +175,13 @@ ZXSpectrum::BYTE ZXSpectrum::readPort(WORD port)
 	contendedAccess(port, 1);
 	if (!(port & 0x0001))
 	{
-		rp2040.fifo.push_nb((uint32_t)(port >> 8) | RD_PORT);
 		contendedAccess(CONTENDED, 2);
-		//		retVal &= (m_inPortFE[7] | 0xBF); // Preserve tape bit
-		for (int i = 0; i < 8; i++) 
-			if (!((port >> (i + 8)) & 0x01)) retVal = m_inPortFE[i];
+//#ifndef KBD_EMULATED
+		rp2040.fifo.push_nb((uint32_t)(port >> 8) | RD_PORT);
+//#endif // !KBD_EMULATED
+		retVal &= (m_inPortFE[7] | 0xBF); // Preserve tape bit
+		for (int i = 0; i < 8; i++)
+			if (!((port >> (i + 8)) & 0x01)) retVal = m_inPortFE[i] & g_zxPeripherals.m_portData[i];
 	}
 	else
 	{
@@ -3525,7 +3530,7 @@ void ZXSpectrum::stepXXCB(BYTE opcode)
 	}
 }
 
-void __not_in_flash_func(ZXSpectrum::stepZ80)()
+void ZXSpectrum::stepZ80()
 {
 	BYTE opcode, opcode2, last_Q, bytetemp, nn, add, carry, bytetempl, bytetemph;
 	WORD wordtemp, outtemp, intemp;

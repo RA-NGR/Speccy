@@ -4,7 +4,6 @@
 extern ZXSpectrum g_zxEmulator;
 extern critical_section g_portLock;
 
-
 ZXPeripherals::~ZXPeripherals()
 {
 	alarm_pool_destroy(m_pAlarmPool);
@@ -45,8 +44,8 @@ void ZXPeripherals::update()
 	}
 	if (ctrlData & RD_PORT)
 	{
-		uint8_t bitNum = 0, mask = 0x01, portNum = ctrlData;
-		while (portNum & mask)
+		uint8_t bitNum = 0, mask = 0x01;// , portNum = ;
+		while ((uint8_t)ctrlData & mask)
 		{
 			mask <<= 1; bitNum++;
 		}
@@ -54,11 +53,13 @@ void ZXPeripherals::update()
 		writeReg(0x14, decodedPort);
 		uint8_t portVal = readPort();
 		//rp2040.fifo.push_nb((uint32_t)portVal | bitNum << 8 | RD_PORT);
-		critical_section_enter_blocking(&g_portLock);
-		g_zxEmulator.orPortVal(bitNum, 0x1F);
-		g_zxEmulator.andPortVal(bitNum, portVal);
-		critical_section_exit(&g_portLock);
-//		if (portVal != 0x1F) DBG_PRINTF("%02X - %02X\n", (uint8_t)ctrlData, portVal);
+		//critical_section_enter_blocking(&g_portLock);
+		//m_portData[bitNum] = 0xFF;
+		m_portData[bitNum] = portVal;
+		//g_zxEmulator.orPortVal(bitNum, 0x1F);
+		//g_zxEmulator.andPortVal(bitNum, portVal);
+		//critical_section_exit(&g_portLock);
+		if (portVal != 0xFF) DBG_PRINTF("%04X Port[%i] - %02X\n", ctrlData, bitNum, portVal);
 
 	}
 }
