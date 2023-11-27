@@ -11,13 +11,14 @@ class ZXPeripherals
 	uint16_t m_rbRdIndex = 0;
 	void writeReg(uint8_t reg, uint8_t data);
 	uint8_t readPort();
+	uint8_t m_portData[10] = { 0 };
+	uint32_t m_fTimer = 0;
 public:
 	ZXPeripherals() {};
 	~ZXPeripherals();
 	bool init();
 	void update();
-	uint8_t check();
-	uint8_t m_portData[10] = { 0 };
+	uint8_t getPortData(uint8_t port) { return m_portData[port]; };
 private:
 	static bool onTimer(struct repeating_timer* timer);
 };

@@ -27,6 +27,7 @@ bool ZXPeripherals::init()
 	writeReg(0x15, 0xE0); // Set latches to high for bits 5...7 portB
 	pinMode(SND_PIN, OUTPUT);
 	digitalWriteFast(SND_PIN, 0);
+	m_fTimer = millis();
 	return true;
 }
 
@@ -44,31 +45,31 @@ void ZXPeripherals::update()
 	}
 	if (ctrlData & RD_PORT)
 	{
-		uint8_t bitNum = 0, mask = 0x01;// , portNum = ;
-		while ((uint8_t)ctrlData & mask)
-		{
-			mask <<= 1; bitNum++;
-		}
 		uint8_t decodedPort = ((uint8_t)ctrlData & 0x0F) << 4 | ((uint8_t)ctrlData & 0xF0) >> 4;
-		writeReg(0x14, decodedPort);
-		uint8_t portVal = readPort();
-		//rp2040.fifo.push_nb((uint32_t)portVal | bitNum << 8 | RD_PORT);
-		//critical_section_enter_blocking(&g_portLock);
-		//m_portData[bitNum] = 0xFF;
-		m_portData[bitNum] = portVal;
-		//g_zxEmulator.orPortVal(bitNum, 0x1F);
-		//g_zxEmulator.andPortVal(bitNum, portVal);
-		//critical_section_exit(&g_portLock);
-		if (portVal != 0xFF) DBG_PRINTF("%04X Port[%i] - %02X\n", ctrlData, bitNum, portVal);
-
+		if (decodedPort != 0xFF)
+		{
+			writeReg(0x14, decodedPort);
+			uint8_t portVal = readPort();
+			for (int i = 0; i < 8; i++) if (!(((uint8_t)ctrlData >> i) & 0x01))m_portData[i] = portVal;
+			writeReg(0x14, 0xFF);
+//			if (portVal != 0xFF) DBG_PRINTF("%04X Port - %02X\n", ctrlData, portVal);
+		}
+		else
+		{
+			writeReg(0x15, 0x60);
+			m_portData[8] = readPort() ^ 0x1F;
+			writeReg(0x15, 0xA0);
+		}
+	}
+	if (millis() - m_fTimer >= 20)
+	{
+		m_fTimer = millis();
+		writeReg(0x15, 0xA0);
+		m_portData[9] = (readPort() & 0x1F) ^ 0x1F;
+		writeReg(0x15, 0xE0);
 	}
 }
 
-uint8_t ZXPeripherals::check()
-{
-	Wire1.beginTransmission(0x20);
-	return Wire1.endTransmission();
-}
 
 bool ZXPeripherals::onTimer(struct repeating_timer* pTimer)
 {

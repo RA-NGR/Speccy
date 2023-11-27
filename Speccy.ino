@@ -40,7 +40,7 @@ int32_t tapePause = -1;
 void setup()
 {
 //	vreg_set_voltage(VREG_VOLTAGE_1_15);
-	set_sys_clock_khz(250000, true);
+	set_sys_clock_khz(225000, true);
 #if defined(DBG) || defined(KBD_EMULATED)
 	Serial.begin(115200);
 	delay(5000);
@@ -140,6 +140,7 @@ void loop()
 				Serial.flush();
 				break;
 			}
+#else
 #endif // KBD_EMULATED
 			if (zxKey == '^')
 			{
@@ -189,6 +190,9 @@ void loop()
 		}
 //		critical_section_exit(&g_portLock);
 #endif // !KBD_EMULATED
+		if (g_zxPeripherals.getPortData(9) == 0x01) g_zxEmulator.resetZ80();
+		for (int i = 0; i < 8; i++) g_zxEmulator.andPortVal(i, g_zxPeripherals.getPortData(i));
+		g_zxEmulator.orPortVal(8, g_zxPeripherals.getPortData(8));
 		g_zxEmulator.loopZ80();
 #ifdef DBG
 		uint32_t emulTime = g_zxEmulator.getEmulationTime();
@@ -200,17 +204,16 @@ void loop()
 			loopCounter = 0;
 		}
 #endif // DBG
-#ifdef KBD_EMULATED
-		for (int i = 0; i < 9; i++)
-			g_zxEmulator.orPortVal(i, 0xBF);
-		g_zxEmulator.andPortVal(8, 0x0);
-#endif // KBD_EMULATED
+//#ifdef KBD_EMULATED
+		for (int i = 0; i < 8; i++)	g_zxEmulator.orPortVal(i, 0xBF);
+		g_zxEmulator.andPortVal(8, 0x00);
+//#endif // KBD_EMULATED
+//		while (!(rp2040.fifo.pop() & STOP_FRAME));
 	}
 }
 
 void setup1()
 {
-//	mutex_init(&g_portMutex);
 	g_zxPeripherals.init();
 }
 

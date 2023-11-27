@@ -179,9 +179,12 @@ ZXSpectrum::BYTE ZXSpectrum::readPort(WORD port)
 //#ifndef KBD_EMULATED
 		rp2040.fifo.push_nb((uint32_t)(port >> 8) | RD_PORT);
 //#endif // !KBD_EMULATED
-		retVal &= (m_inPortFE[7] | 0xBF); // Preserve tape bit
 		for (int i = 0; i < 8; i++)
-			if (!((port >> (i + 8)) & 0x01)) retVal = m_inPortFE[i] & g_zxPeripherals.m_portData[i];
+			if (!((port >> (i + 8)) & 0x01))
+			{
+				retVal = m_inPortFE[i];// &g_zxPeripherals.m_portData[i];
+//				g_zxPeripherals.m_portData[i] |= 0x1F;
+			}
 	}
 	else
 	{
@@ -196,7 +199,11 @@ ZXSpectrum::BYTE ZXSpectrum::readPort(WORD port)
 		}
 
 	}
-	if ((port & 0x00FF) <= 0x1F) retVal = m_inPortFE[8];
+	if ((port & 0x00FF) <= 0x1F)
+	{
+		rp2040.fifo.push_nb(0x000000FF | RD_PORT);
+		retVal = m_inPortFE[8];
+	}
 	m_Z80Processor.tCount++;
 	return retVal;
 }
@@ -4699,7 +4706,7 @@ void ZXSpectrum::loopZ80()
 	uint64_t startTime = micros();
 #endif // DBG
 	int32_t usedCycles;
-	rp2040.fifo.clear();
+//	rp2040.fifo.clear();
 	rp2040.fifo.push(START_FRAME);
 	intZ80();
 	while (m_Z80Processor.tCount < LOOPCYCLES)
@@ -4729,17 +4736,7 @@ void ZXSpectrum::loopZ80()
 #ifdef DBG
 	m_emulationTime = micros() - startTime;
 #endif // DBG
-	uint32_t ctrlData;
 	while (!(rp2040.fifo.pop() & STOP_FRAME));
-	//{
-	//	ctrlData = rp2040.fifo.pop();
-	//	if (ctrlData & STOP_FRAME) break;
-	//	if (ctrlData & RD_PORT)
-	//	{
-	//		uint8_t portNum = (ctrlData >> 8) & 0x07, portVal = (uint8_t)ctrlData;
-	//		m_inPortFE[portNum] &= ctrlData;
-	//	}
-	//}
 }
 
 void ZXSpectrum::startTape(BYTE* pBuffer, uint32_t bufferSize)
