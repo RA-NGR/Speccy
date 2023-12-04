@@ -177,7 +177,7 @@ class ZXSpectrum
 	uint8_t* m_pContendTable;
 	bool m_initComplete = false;
 	int16_t m_scanLine = -1;
-	uint32_t m_emulationTime = 0;
+	uint32_t m_emulationTime = 0, m_waitTime = 0, m_rpTime = 0;
 	union PortFE
 	{
 		struct
@@ -205,6 +205,8 @@ class ZXSpectrum
 	bool stepFD(BYTE opcode);
 	void stepXXCB(BYTE opcode);
 	void __not_in_flash_func(stepZ80)();
+	void writeReg(uint8_t reg, uint8_t data); 
+	uint8_t readKeys();
 public:
 	ZXSpectrum() {};
 	~ZXSpectrum();
@@ -212,6 +214,8 @@ public:
 	void resetZ80();
 	void loopZ80();
 	uint32_t getEmulationTime() { return m_emulationTime; };
+	uint32_t getWaitTime() { return m_waitTime; };
+	uint32_t getRPTime() { return m_rpTime; };
 	BYTE getPortVal(uint16_t portNum) { return m_inPortFE[portNum]; };
 	void setPortVal(uint16_t portNum, BYTE value) { m_inPortFE[portNum] = value; };
 	void andPortVal(WORD portNum, BYTE value) { m_inPortFE[portNum] &= value; };

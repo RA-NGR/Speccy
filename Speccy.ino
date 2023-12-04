@@ -1,3 +1,4 @@
+#include <PWMAudio.h>
 #include "Common.h"
 #include "Display.h"
 #include "ZXSpectrum.h"
@@ -7,7 +8,7 @@
 Display g_mainDisplay;
 ZXSpectrum g_zxEmulator;
 ZXPeripherals g_zxPeripherals;
-critical_section g_portLock; 
+
 enum systemMode
 {
 	modeEmulator,
@@ -40,18 +41,16 @@ int32_t tapePause = -1;
 void setup()
 {
 //	vreg_set_voltage(VREG_VOLTAGE_1_15);
-	set_sys_clock_khz(225000, true);
+	set_sys_clock_khz(250000, true);
 #if defined(DBG) || defined(KBD_EMULATED)
 	Serial.begin(115200);
 	delay(5000);
 #endif // DBG || KBD_EMULATED
-	critical_section_init(&g_portLock);
 	g_mainDisplay.init();
 	delay(100);
 	g_zxEmulator.init(&g_mainDisplay);
 	g_zxEmulator.resetZ80();
 	DBG_PRINTF("Free mem: %d\n", rp2040.getFreeHeap());
-//	DBG_PRINTLN(g_zxPeripherals.check());
 //	SD.begin(SS);
 
 }
@@ -77,7 +76,7 @@ void loop()
 	{
 #ifdef DBG
 		static uint32_t loopCounter = 0;
-		static uint32_t maxTime = 0;
+		static uint32_t maxTime = 0, minWait = 10000;
 #endif // DBG
 		if (tapActive && !g_zxEmulator.tapeActive())
 		{
@@ -99,6 +98,21 @@ void loop()
 		int zxKey;
 		while ((zxKey = Serial.read()) != -1)
 		{
+			if (zxKey == '#')
+			{
+				if ((zxKey = Serial.read()) != -1)
+					switch (zxKey)
+					{
+					case '4':
+						g_zxEmulator.resetZ80();
+						break;
+					case '5':
+						maxTime = 0;
+					default:
+						break;
+					}
+			}
+
 #ifdef KBD_EMULATED
 			if (zxKey == '#')
 			{
@@ -182,33 +196,29 @@ void loop()
 #endif // KBD_EMULATED
 		}
 #ifndef KBD_EMULATED
-//		critical_section_enter_blocking(&g_portLock);
-//		for (int i = 0; i < 8; i++)
-		{
-//			DBG_PRINTF("%i - %02X\n", i, g_zxPeripherals.m_portData[i]);
-//			g_zxEmulator.andPortVal(0, g_zxPeripherals.m_portData[0]);
-		}
-//		critical_section_exit(&g_portLock);
+//		if (g_zxPeripherals.getPortData(9) == 0x01) g_zxEmulator.resetZ80();
+		//if (g_zxPeripherals.getPortData(9) == 0x02) g_zxEmulator.tape1X();
+		//if (g_zxPeripherals.getPortData(9) == 0x04) g_zxEmulator.tape2X();
+		//for (int i = 0; i < 8; i++) g_zxEmulator.andPortVal(i, g_zxPeripherals.getPortData(i));
+		//g_zxEmulator.orPortVal(8, g_zxPeripherals.getPortData(8));
 #endif // !KBD_EMULATED
-		if (g_zxPeripherals.getPortData(9) == 0x01) g_zxEmulator.resetZ80();
-		for (int i = 0; i < 8; i++) g_zxEmulator.andPortVal(i, g_zxPeripherals.getPortData(i));
-		g_zxEmulator.orPortVal(8, g_zxPeripherals.getPortData(8));
 		g_zxEmulator.loopZ80();
 #ifdef DBG
-		uint32_t emulTime = g_zxEmulator.getEmulationTime();
+		uint32_t emulTime = g_zxEmulator.getEmulationTime(), waitTime = g_zxEmulator.getWaitTime();
 		if (emulTime > maxTime) maxTime = emulTime;
+		if (minWait > waitTime) minWait = waitTime;
 		loopCounter++;
 		if (loopCounter > 89)
 		{
-			DBG_PRINTF("Core temp: %.2f'C, FPS: %3.1f (min: %3.1f)\n", analogReadTemp(), 1000000.0 / emulTime, 1000000.0 / maxTime);
+//			DBG_PRINTF("Core temp: %.2f'C, FPS: %3.1f (min: %3.1f) Wait time: %4d (min: %4d)\n", analogReadTemp(), 1000000.0 / emulTime, 1000000.0 / maxTime, waitTime, minWait);
+			DBG_PRINTF("RP time: %d\n", g_zxEmulator.getRPTime());
 			loopCounter = 0;
 		}
 #endif // DBG
-//#ifdef KBD_EMULATED
+#ifdef KBD_EMULATED
 		for (int i = 0; i < 8; i++)	g_zxEmulator.orPortVal(i, 0xBF);
 		g_zxEmulator.andPortVal(8, 0x00);
-//#endif // KBD_EMULATED
-//		while (!(rp2040.fifo.pop() & STOP_FRAME));
+#endif // KBD_EMULATED
 	}
 }
 

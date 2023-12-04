@@ -1,11 +1,6 @@
 #include "ZXSpectrum.h"
 #include "ZXMacros.h"
 
-#include "ZXPeripherals.h"
-
-extern critical_section g_portLock;
-extern ZXPeripherals g_zxPeripherals;
-
 ZXSpectrum::~ZXSpectrum()
 {
 	free(m_pZXMemory);
@@ -109,9 +104,7 @@ int8_t ZXSpectrum::intZ80()
 
 void ZXSpectrum::processTape()
 {
-	critical_section_enter_blocking(&g_portLock);
 	for (int i = 0; i < 8; i++) m_inPortFE[i] ^= 0x40;
-	critical_section_exit(&g_portLock);
 	m_ZXTape.statesCount--;
 	m_ZXTape.stateCycles = m_tapeStates[m_ZXTape.tapeState].stateCycles + m_ZXTape.stateCycles; // restore state cycles
 	if (m_ZXTape.statesCount > 0) return;
@@ -171,20 +164,25 @@ ZXSpectrum::BYTE ZXSpectrum::unattachedPort()
 ZXSpectrum::BYTE ZXSpectrum::readPort(WORD port)
 {
 	BYTE retVal = 0xFF;
+	uint32_t periphData = 0x0000001F, timeOut = 0;
 
 	contendedAccess(port, 1);
 	if (!(port & 0x0001))
 	{
 		contendedAccess(CONTENDED, 2);
-//#ifndef KBD_EMULATED
-		rp2040.fifo.push_nb((uint32_t)(port >> 8) | RD_PORT);
-//#endif // !KBD_EMULATED
-		for (int i = 0; i < 8; i++)
-			if (!((port >> (i + 8)) & 0x01))
-			{
-				retVal = m_inPortFE[i];// &g_zxPeripherals.m_portData[i];
-//				g_zxPeripherals.m_portData[i] |= 0x1F;
-			}
+#ifdef KBD_EMULATED
+		for (int i = 0; i < 8; i++) if (!((port >> (i + 8)) & 0x01)) retVal = retVal = m_inPortFE[i];
+#else
+		uint8_t decodedPort = ((uint8_t)(port >> 8) & 0x0F) << 4 | ((uint8_t)(port >> 8) & 0xF0) >> 4;
+		m_rpTime = micros();
+		writeReg(0x14, decodedPort);
+		/*uint8_t keysData*/retVal = readKeys();
+		m_rpTime = micros() - m_rpTime;
+		//writeReg(0x14, 0xFF);
+		//		if (retVal != 0xFF) DBG_PRINTF("%02X\n", retVal);
+			//		for (int i = 0; i < 8; i++) if (!((port >> (i + 8)) & 0x01)) retVal = Wire1.re;
+#endif // KBD_EMULATED
+			retVal &= (m_inPortFE[7] | 0xBF); // Tape bit
 	}
 	else
 	{
@@ -201,9 +199,14 @@ ZXSpectrum::BYTE ZXSpectrum::readPort(WORD port)
 	}
 	if ((port & 0x00FF) <= 0x1F)
 	{
-		rp2040.fifo.push_nb(0x000000FF | RD_PORT);
-		retVal = m_inPortFE[8];
+		//#ifdef KBD_EMULATED
+		//		retVal = m_inPortFE[8];
+		//#else
+		writeReg(0x15, 0x60);
+		retVal = readKeys() ^ 0xFF;
+		writeReg(0x15, 0xE0);
 	}
+//#endif // KBD_EMULATED
 	m_Z80Processor.tCount++;
 	return retVal;
 }
@@ -4673,7 +4676,7 @@ void ZXSpectrum::stepZ80()
 	}
 }
 /// Public
-bool ZXSpectrum::init(Display* pDisplayInstance/*, ZXPeripherals* pPeriphInstance*/)
+bool ZXSpectrum::init(Display* pDisplayInstance)
 {
 	m_pDisplayInstance = pDisplayInstance;
 	for (uint8_t i = 0; i < 2; i++) m_pScreenBuffer[i] = m_pDisplayInstance->getBuffer(i);
@@ -4687,6 +4690,16 @@ bool ZXSpectrum::init(Display* pDisplayInstance/*, ZXPeripherals* pPeriphInstanc
 	File romFile = LittleFS.open(ROMFILENAME, "r");
 	if (!(romFile.read(m_pZXMemory, 16384) == 16384)) { DBG_PRINTLN("Error reading ROM image"); return false; }
 	LittleFS.end();
+	Wire1.begin(); Wire1.setClock(1000000);
+	writeReg(0x0A, 0x20); // Disable SEQOP on port A
+	writeReg(0x0B, 0x20); // Disable SEQOP on port B
+	writeReg(0x00, 0x00); // I/O direction register A - all bits to output, Spectrum A8...A15 
+	writeReg(0x01, 0x1F); // I/O direction register B - bits 0...4 to input, Spectrum D0...D4
+	writeReg(0x04, 0x00); // Disable INT on port A 
+	writeReg(0x05, 0x00); // Disable INT on port B
+	writeReg(0x0D, 0x1F); // Pullup input bits
+	writeReg(0x14, 0xFF); // Set latches to high for all bits port A
+	writeReg(0x15, 0xE0); // Set latches to high for bits 5...7 portB
 	m_initComplete = true;
 	return m_initComplete;
 }
@@ -4706,7 +4719,6 @@ void ZXSpectrum::loopZ80()
 	uint64_t startTime = micros();
 #endif // DBG
 	int32_t usedCycles;
-//	rp2040.fifo.clear();
 	rp2040.fifo.push(START_FRAME);
 	intZ80();
 	while (m_Z80Processor.tCount < LOOPCYCLES)
@@ -4736,7 +4748,9 @@ void ZXSpectrum::loopZ80()
 #ifdef DBG
 	m_emulationTime = micros() - startTime;
 #endif // DBG
+	m_waitTime = micros();
 	while (!(rp2040.fifo.pop() & STOP_FRAME));
+	m_waitTime = micros() - m_waitTime;
 }
 
 void ZXSpectrum::startTape(BYTE* pBuffer, uint32_t bufferSize)
@@ -4785,3 +4799,18 @@ void ZXSpectrum::tape1X()
 	m_tapeStates[3] = { 667, 1 };
 	m_tapeStates[4] = { 735, 1 };
 }
+
+void ZXSpectrum::writeReg(uint8_t reg, uint8_t data)
+{
+	Wire1.beginTransmission(0x20);
+	Wire1.write(reg); Wire1.write(data);
+	Wire1.endTransmission();
+}
+
+uint8_t ZXSpectrum::readKeys()
+{
+	Wire1.beginTransmission(0x20); Wire1.write(0x13); Wire1.endTransmission(); // Request GPIOB state
+	Wire1.requestFrom(0x20, 1);
+	return (Wire1.read() | 0xE0);
+}
+

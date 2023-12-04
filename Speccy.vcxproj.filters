@@ -61,6 +61,9 @@
     <Filter Include="src\_micro-api-readonly\libraries\Wire">
       <UniqueIdentifier>{1aa0da60-f244-434c-94ad-f4a76aef68e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\PWMAudio">
+      <UniqueIdentifier>{04014ea3-fe9b-4497-984f-bb98c360d866}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Speccy.ino" />
@@ -345,6 +348,9 @@
     </ClCompile>
     <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\Wire\src\Wire.cpp">
       <Filter>src\_micro-api-readonly\libraries\Wire</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\PWMAudio\src\PWMAudio.cpp">
+      <Filter>src\_micro-api-readonly\libraries\PWMAudio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -816,6 +822,9 @@
     <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\Wire\src\Wire.h">
       <Filter>src\_micro-api-readonly\libraries\Wire</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\PWMAudio\src\PWMAudio.h">
+      <Filter>src\_micro-api-readonly\libraries\PWMAudio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\keywords.txt">
@@ -839,6 +848,9 @@
     <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\Wire\keywords.txt">
       <Filter>src\_micro-api-readonly\libraries\Wire</Filter>
     </Text>
+    <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\PWMAudio\keywords.txt">
+      <Filter>src\_micro-api-readonly\libraries\PWMAudio</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\library.properties">
@@ -858,6 +870,9 @@
     </None>
     <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\Wire\library.properties">
       <Filter>src\_micro-api-readonly\libraries\Wire</Filter>
+    </None>
+    <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\PWMAudio\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\PWMAudio</Filter>
     </None>
   </ItemGroup>
 </Project>
