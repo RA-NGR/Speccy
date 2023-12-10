@@ -189,13 +189,17 @@ class ZXSpectrum
 		};
 		uint8_t rawData;
 	} m_outPortFE;
-	BYTE  m_inPortFE[9] = {0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0x00}; // 8 - kempston
+	BYTE  m_inPortFE[10] = {0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0xBF, 0x00, 0x00}; // 8 - kempston
+	uint8_t m_portScanMask[10] = {0b11101111, 0b11011111, 0b10111111, 0b01111111, 0b11111110, 0b11111101, 0b11111011, 0b11110111, 0b01100000, 0b10100000 };
+	uint8_t m_portScanIdx = 0;
 	Display* m_pDisplayInstance;
+	struct repeating_timer m_clockTimer;
+	static bool onTimer(struct repeating_timer* timer);
 	void drawLine(int posY);
 	int8_t intZ80();
 	void processTape();
-	void __not_in_flash_func(writeMem)(WORD address, BYTE data);
-	BYTE __not_in_flash_func(readMem)(WORD address);
+	void __attribute__((section(".time_critical." "writeMem"))) writeMem(WORD address, BYTE data);
+	BYTE __attribute__((section(".time_critical." "readMem"))) readMem(WORD address);
 	BYTE unattachedPort();
 	BYTE readPort(WORD port);
 	void writePort(WORD port, BYTE data);
@@ -204,7 +208,7 @@ class ZXSpectrum
 	bool stepDD(BYTE opcode);
 	bool stepFD(BYTE opcode);
 	void stepXXCB(BYTE opcode);
-	void __not_in_flash_func(stepZ80)();
+	void __attribute__((section(".time_critical." "stepZ80"))) stepZ80();
 	void writeReg(uint8_t reg, uint8_t data); 
 	uint8_t readKeys();
 public:

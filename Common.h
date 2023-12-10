@@ -51,6 +51,7 @@
 #define IRQ_LENGTH 32
 #define BORDER_BUFFER_SIZE 128
 #define SOUND_CLOCK 8 /* in us, 12 is enought in most cases */
+#define KBD_CLOCK 1000
 #define SOUND_BUFFER_SIZE 1024
 
 #define ROMFILENAME "/BASIC82.rom"

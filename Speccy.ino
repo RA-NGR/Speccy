@@ -16,22 +16,6 @@ enum systemMode
 };
 enum systemMode g_sysMode = systemMode::modeEmulator;
 
-#ifdef KBD_EMULATED
-struct
-{
-	char chr;
-	uint8_t portIdx;
-	uint8_t bits;
-} keyMap[40] = {
-				 {'1', 3, 0b11111110}, {'2', 3, 0b11111101}, {'3', 3, 0b11111011}, {'4', 3, 0b11110111}, {'5', 3, 0b11101111},
-				 {'0', 4, 0b11111110}, {'9', 4, 0b11111101}, {'8', 4, 0b11111011}, {'7', 4, 0b11110111}, {'6', 4, 0b11101111},
-				 {'q', 2, 0b11111110}, {'w', 2, 0b11111101}, {'e', 2, 0b11111011}, {'r', 2, 0b11110111}, {'t', 2, 0b11101111},
-				 {'p', 5, 0b11111110}, {'o', 5, 0b11111101}, {'i', 5, 0b11111011}, {'u', 5, 0b11110111}, {'y', 5, 0b11101111},
-				 {'a', 1, 0b11111110}, {'s', 1, 0b11111101}, {'d', 1, 0b11111011}, {'f', 1, 0b11110111}, {'g', 1, 0b11101111},
-				 {'`', 6, 0b11111110}, {'l', 6, 0b11111101}, {'k', 6, 0b11111011}, {'j', 6, 0b11110111}, {'h', 6, 0b11101111},
-				 {'=', 0, 0b11111110}, {'z', 0, 0b11111101}, {'x', 0, 0b11111011}, {'c', 0, 0b11110111}, {'v', 0, 0b11101111},
-				 {' ', 7, 0b11111110}, {'-', 7, 0b11111101}, {'m', 7, 0b11111011}, {'n', 7, 0b11110111}, {'b', 7, 0b11101111} }; // ` - ENTER, = - CS, - - SS
-#endif // KBD_EMULATED
 uint8_t* tapBuffer = NULL;
 uint16_t tapSize = 0;
 File tapFile;
@@ -42,16 +26,15 @@ void setup()
 {
 //	vreg_set_voltage(VREG_VOLTAGE_1_15);
 	set_sys_clock_khz(250000, true);
-#if defined(DBG) || defined(KBD_EMULATED)
+#if defined(DBG)
 	Serial.begin(115200);
 	delay(5000);
-#endif // DBG || KBD_EMULATED
+#endif // DBG
 	g_mainDisplay.init();
 	delay(100);
 	g_zxEmulator.init(&g_mainDisplay);
 	g_zxEmulator.resetZ80();
 	DBG_PRINTF("Free mem: %d\n", rp2040.getFreeHeap());
-//	SD.begin(SS);
 
 }
 
@@ -76,7 +59,7 @@ void loop()
 	{
 #ifdef DBG
 		static uint32_t loopCounter = 0;
-		static uint32_t maxTime = 0, minWait = 10000;
+		static uint32_t maxTime = 0;
 #endif // DBG
 		if (tapActive && !g_zxEmulator.tapeActive())
 		{
@@ -103,59 +86,22 @@ void loop()
 				if ((zxKey = Serial.read()) != -1)
 					switch (zxKey)
 					{
-					case '4':
-						g_zxEmulator.resetZ80();
-						break;
-					case '5':
-						maxTime = 0;
-					default:
-						break;
-					}
-			}
-
-#ifdef KBD_EMULATED
-			if (zxKey == '#')
-			{
-				if ((zxKey = Serial.read()) != -1)
-					switch (zxKey)
-					{
 					case '1': // F1
 						g_zxEmulator.tape1X();
 						break;
 					case '2':
 						g_zxEmulator.tape2X();
 						break;
-					case '3':
-						break;
 					case '4':
+						free(tapBuffer);
 						g_zxEmulator.resetZ80();
 						break;
 					case '5':
 						maxTime = 0;
-						break;
-					case 'r':
-						g_zxEmulator.orPortVal(8, 0b00000001);
-						break;
-					case 'l':
-						g_zxEmulator.orPortVal(8, 0b00000010);
-						break;
-					case 'd':
-						g_zxEmulator.orPortVal(8, 0b00000100);
-						break;
-					case 'u':
-						g_zxEmulator.orPortVal(8, 0b00001000);
-						break;
-					case 'f':
-						g_zxEmulator.orPortVal(8, 0b00010000);
-						break;
 					default:
 						break;
 					}
-				Serial.flush();
-				break;
 			}
-#else
-#endif // KBD_EMULATED
 			if (zxKey == '^')
 			{
 				g_zxEmulator.stopTape();
@@ -190,35 +136,19 @@ void loop()
 				Serial.flush();
 				break;
 			}
-#ifdef KBD_EMULATED
-			for (int i = 0; i < 40; i++) if (keyMap[i].chr == zxKey)
-				g_zxEmulator.andPortVal(keyMap[i].portIdx, keyMap[i].bits);
-#endif // KBD_EMULATED
 		}
-#ifndef KBD_EMULATED
-//		if (g_zxPeripherals.getPortData(9) == 0x01) g_zxEmulator.resetZ80();
-		//if (g_zxPeripherals.getPortData(9) == 0x02) g_zxEmulator.tape1X();
-		//if (g_zxPeripherals.getPortData(9) == 0x04) g_zxEmulator.tape2X();
-		//for (int i = 0; i < 8; i++) g_zxEmulator.andPortVal(i, g_zxPeripherals.getPortData(i));
-		//g_zxEmulator.orPortVal(8, g_zxPeripherals.getPortData(8));
-#endif // !KBD_EMULATED
 		g_zxEmulator.loopZ80();
 #ifdef DBG
-		uint32_t emulTime = g_zxEmulator.getEmulationTime(), waitTime = g_zxEmulator.getWaitTime();
+		uint32_t emulTime = g_zxEmulator.getEmulationTime();
 		if (emulTime > maxTime) maxTime = emulTime;
-		if (minWait > waitTime) minWait = waitTime;
 		loopCounter++;
 		if (loopCounter > 89)
 		{
-//			DBG_PRINTF("Core temp: %.2f'C, FPS: %3.1f (min: %3.1f) Wait time: %4d (min: %4d)\n", analogReadTemp(), 1000000.0 / emulTime, 1000000.0 / maxTime, waitTime, minWait);
-			DBG_PRINTF("RP time: %d\n", g_zxEmulator.getRPTime());
+			DBG_PRINTF("Core temp: %.2f'C, FPS: %3.1f (min: %3.1f)\n", analogReadTemp(), 1000000.0 / emulTime, 1000000.0 / maxTime);
+//			DBG_PRINTF("RP time: %d\n", g_zxEmulator.getRPTime());
 			loopCounter = 0;
 		}
 #endif // DBG
-#ifdef KBD_EMULATED
-		for (int i = 0; i < 8; i++)	g_zxEmulator.orPortVal(i, 0xBF);
-		g_zxEmulator.andPortVal(8, 0x00);
-#endif // KBD_EMULATED
 	}
 }
 

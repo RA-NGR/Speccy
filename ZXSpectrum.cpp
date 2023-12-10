@@ -170,19 +170,16 @@ ZXSpectrum::BYTE ZXSpectrum::readPort(WORD port)
 	if (!(port & 0x0001))
 	{
 		contendedAccess(CONTENDED, 2);
-#ifdef KBD_EMULATED
 		for (int i = 0; i < 8; i++) if (!((port >> (i + 8)) & 0x01)) retVal = retVal = m_inPortFE[i];
-#else
-		uint8_t decodedPort = ((uint8_t)(port >> 8) & 0x0F) << 4 | ((uint8_t)(port >> 8) & 0xF0) >> 4;
-		m_rpTime = micros();
-		writeReg(0x14, decodedPort);
-		/*uint8_t keysData*/retVal = readKeys();
-		m_rpTime = micros() - m_rpTime;
-		//writeReg(0x14, 0xFF);
-		//		if (retVal != 0xFF) DBG_PRINTF("%02X\n", retVal);
-			//		for (int i = 0; i < 8; i++) if (!((port >> (i + 8)) & 0x01)) retVal = Wire1.re;
-#endif // KBD_EMULATED
-			retVal &= (m_inPortFE[7] | 0xBF); // Tape bit
+//		uint8_t decodedPort = ((uint8_t)(port >> 8) & 0x0F) << 4 | ((uint8_t)(port >> 8) & 0xF0) >> 4;
+//		m_rpTime = micros();
+//		writeReg(0x14, decodedPort);
+//		/*uint8_t keysData*/retVal = readKeys();
+//		m_rpTime = micros() - m_rpTime;
+//		//writeReg(0x14, 0xFF);
+//		//		if (retVal != 0xFF) DBG_PRINTF("%02X\n", retVal);
+//			//		for (int i = 0; i < 8; i++) if (!((port >> (i + 8)) & 0x01)) retVal = Wire1.re;
+//			retVal &= (m_inPortFE[7] | 0xBF); // Tape bit
 	}
 	else
 	{
@@ -197,16 +194,7 @@ ZXSpectrum::BYTE ZXSpectrum::readPort(WORD port)
 		}
 
 	}
-	if ((port & 0x00FF) <= 0x1F)
-	{
-		//#ifdef KBD_EMULATED
-		//		retVal = m_inPortFE[8];
-		//#else
-		writeReg(0x15, 0x60);
-		retVal = readKeys() ^ 0xFF;
-		writeReg(0x15, 0xE0);
-	}
-//#endif // KBD_EMULATED
+	if ((port & 0x00FF) <= 0x1F) retVal = m_inPortFE[8];
 	m_Z80Processor.tCount++;
 	return retVal;
 }
@@ -4685,7 +4673,7 @@ bool ZXSpectrum::init(Display* pDisplayInstance)
 	memset(m_pContendTable, 0, 42910);
 	uint8_t contPattern[] = { 6, 5, 4, 3, 2, 1, 0, 0 };
 	for (uint32_t i = 0; i < 42910; i++) m_pContendTable[i] = (((i % 224) > 127) ? 0 : contPattern[(i % 224) % 8]);
-	if (!LittleFS.begin()) { DBG_PRINTLN("SPIFFS Mount Failed"); return false; }
+	if (!LittleFS.begin()) { DBG_PRINTLN("FS Mount Failed"); return false; }
 	if (!LittleFS.exists(ROMFILENAME)) { DBG_PRINTLN("ROM image not found"); return false; }
 	File romFile = LittleFS.open(ROMFILENAME, "r");
 	if (!(romFile.read(m_pZXMemory, 16384) == 16384)) { DBG_PRINTLN("Error reading ROM image"); return false; }
@@ -4700,7 +4688,7 @@ bool ZXSpectrum::init(Display* pDisplayInstance)
 	writeReg(0x0D, 0x1F); // Pullup input bits
 	writeReg(0x14, 0xFF); // Set latches to high for all bits port A
 	writeReg(0x15, 0xE0); // Set latches to high for bits 5...7 portB
-	m_initComplete = true;
+	m_initComplete = add_repeating_timer_us(-KBD_CLOCK, onTimer, this, &m_clockTimer);
 	return m_initComplete;
 }
 
@@ -4814,3 +4802,20 @@ uint8_t ZXSpectrum::readKeys()
 	return (Wire1.read() | 0xE0);
 }
 
+bool ZXSpectrum::onTimer(struct repeating_timer* pTimer)
+{
+	ZXSpectrum* pInstance = (ZXSpectrum*)pTimer->user_data;
+	uint8_t tapeBit = pInstance->m_inPortFE[7] | 0xBF, regAddr = 0x14, regFlush = 0xFF;  
+	if (pInstance->m_portScanIdx > 7)
+	{
+		regAddr = 0x15; regFlush = 0xE0;
+	}
+	pInstance->writeReg(regAddr, pInstance->m_portScanMask[pInstance->m_portScanIdx]);
+	if (pInstance->m_portScanIdx < 8)
+		pInstance->m_inPortFE[pInstance->m_portScanIdx] = pInstance->readKeys() & tapeBit;
+	else
+		pInstance->m_inPortFE[pInstance->m_portScanIdx] = pInstance->readKeys() ^ 0xFF;
+	pInstance->writeReg(regAddr, regFlush);
+	if (++pInstance->m_portScanIdx >= 10) pInstance->m_portScanIdx = 0;
+	return true;
+}
