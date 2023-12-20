@@ -62,7 +62,7 @@ void ZXSpectrum::drawLine(int posY)
 			m_borderColor = m_borderColors[m_pbRIndex].color; m_pbRIndex = (++m_pbRIndex) & (BORDER_BUFFER_SIZE - 1);
 		}
 	}
-	if (posY % DMA_BUFF_SIZE == DMA_BUFF_SIZE - 1) m_pDisplayInstance->drawBuffer(buffSwitch);
+	if (posY % DMA_BUFF_SIZE == DMA_BUFF_SIZE - 1) m_pDisplayInstance->drawBuffer(buffSwitch, 320 * DMA_BUFF_SIZE);
 }
 
 int8_t ZXSpectrum::intZ80()
@@ -104,7 +104,7 @@ int8_t ZXSpectrum::intZ80()
 
 void ZXSpectrum::processTape()
 {
-	for (int i = 0; i < 8; i++) m_inPortFE[i] ^= 0x40;
+	m_tapeIn ^= 0x40;
 	m_ZXTape.statesCount--;
 	m_ZXTape.stateCycles = m_tapeStates[m_ZXTape.tapeState].stateCycles + m_ZXTape.stateCycles; // restore state cycles
 	if (m_ZXTape.statesCount > 0) return;
@@ -170,16 +170,8 @@ ZXSpectrum::BYTE ZXSpectrum::readPort(WORD port)
 	if (!(port & 0x0001))
 	{
 		contendedAccess(CONTENDED, 2);
-		for (int i = 0; i < 8; i++) if (!((port >> (i + 8)) & 0x01)) retVal = retVal = m_inPortFE[i];
-//		uint8_t decodedPort = ((uint8_t)(port >> 8) & 0x0F) << 4 | ((uint8_t)(port >> 8) & 0xF0) >> 4;
-//		m_rpTime = micros();
-//		writeReg(0x14, decodedPort);
-//		/*uint8_t keysData*/retVal = readKeys();
-//		m_rpTime = micros() - m_rpTime;
-//		//writeReg(0x14, 0xFF);
-//		//		if (retVal != 0xFF) DBG_PRINTF("%02X\n", retVal);
-//			//		for (int i = 0; i < 8; i++) if (!((port >> (i + 8)) & 0x01)) retVal = Wire1.re;
-//			retVal &= (m_inPortFE[7] | 0xBF); // Tape bit
+		retVal &= m_tapeIn;
+		for (int i = 0; i < 8; i++) if (!((port >> (i + 8)) & 0x01)) retVal &= m_pInPort[i];
 	}
 	else
 	{
@@ -194,7 +186,7 @@ ZXSpectrum::BYTE ZXSpectrum::readPort(WORD port)
 		}
 
 	}
-	if ((port & 0x00FF) <= 0x1F) retVal = m_inPortFE[8];
+	if ((port & 0x00FF) <= 0x1F) retVal = m_pInPort[8];
 	m_Z80Processor.tCount++;
 	return retVal;
 }
@@ -214,7 +206,7 @@ void ZXSpectrum::writePort(WORD port, BYTE data)
 			else
 				m_borderColor = m_colorLookup[data & 0x07];
 		}
-		if (m_outPortFE.soundOut != ((data >> 4) & 1)) rp2040.fifo.push_nb(m_Z80Processor.tCount & 0x00FFFFFF | WR_PORT);
+		if (m_emulSettings.soundEnabled && m_outPortFE.soundOut != ((data >> 4) & 1)) rp2040.fifo.push_nb(m_Z80Processor.tCount & 0x00FFFFFF | WR_PORT);
 		m_outPortFE.rawData = data;
 	}
 	if (!(port & 0x0001))
@@ -4664,32 +4656,31 @@ void ZXSpectrum::stepZ80()
 	}
 }
 /// Public
-bool ZXSpectrum::init(Display* pDisplayInstance)
+bool ZXSpectrum::init(Display* pDisplayInstance, Keyboard* pKeyboardInstance)
 {
+	char romFile[] = "/BASIC82.rom";
 	m_pDisplayInstance = pDisplayInstance;
 	for (uint8_t i = 0; i < 2; i++) m_pScreenBuffer[i] = m_pDisplayInstance->getBuffer(i);
-	if ((m_pZXMemory = (uint8_t*)malloc(65535)) == NULL) { printf("Error allocating ZXMemory"); return false; }
+	m_pInPort = pKeyboardInstance->getBuffer();
+	if ((m_pZXMemory = (uint8_t*)malloc(65536)) == NULL) { printf("Error allocating ZXMemory"); return false; }
 	if ((m_pContendTable = (uint8_t*)malloc(42910)) == NULL) { printf("Error allocating contended access table"); return false; }
 	memset(m_pContendTable, 0, 42910);
 	uint8_t contPattern[] = { 6, 5, 4, 3, 2, 1, 0, 0 };
 	for (uint32_t i = 0; i < 42910; i++) m_pContendTable[i] = (((i % 224) > 127) ? 0 : contPattern[(i % 224) % 8]);
-	if (!LittleFS.begin()) { DBG_PRINTLN("FS Mount Failed"); return false; }
-	if (!LittleFS.exists(ROMFILENAME)) { DBG_PRINTLN("ROM image not found"); return false; }
-	File romFile = LittleFS.open(ROMFILENAME, "r");
-	if (!(romFile.read(m_pZXMemory, 16384) == 16384)) { DBG_PRINTLN("Error reading ROM image"); return false; }
-	LittleFS.end();
-	Wire1.begin(); Wire1.setClock(1000000);
-	writeReg(0x0A, 0x20); // Disable SEQOP on port A
-	writeReg(0x0B, 0x20); // Disable SEQOP on port B
-	writeReg(0x00, 0x00); // I/O direction register A - all bits to output, Spectrum A8...A15 
-	writeReg(0x01, 0x1F); // I/O direction register B - bits 0...4 to input, Spectrum D0...D4
-	writeReg(0x04, 0x00); // Disable INT on port A 
-	writeReg(0x05, 0x00); // Disable INT on port B
-	writeReg(0x0D, 0x1F); // Pullup input bits
-	writeReg(0x14, 0xFF); // Set latches to high for all bits port A
-	writeReg(0x15, 0xE0); // Set latches to high for bits 5...7 portB
-	m_initComplete = add_repeating_timer_us(-KBD_CLOCK, onTimer, this, &m_clockTimer);
+	if (!loadROMFile(romFile)) return false;
+	m_initComplete = true;
 	return m_initComplete;
+}
+
+bool ZXSpectrum::loadROMFile(const char* pFileName)
+{
+	if (!LittleFS.begin()) { DBG_PRINTLN("FS Mount Failed"); return false; }
+	if (!LittleFS.exists(pFileName)) { DBG_PRINTLN("ROM image not found"); return false; }
+	File romFile = LittleFS.open(pFileName, "r");
+	if (!(romFile.read(m_pZXMemory, 16384) == 16384)) { DBG_PRINTLN("Error reading ROM image"); romFile.close(); return false; }
+	romFile.close();
+	LittleFS.end();
+	return true;
 }
 
 void ZXSpectrum::resetZ80()
@@ -4699,13 +4690,12 @@ void ZXSpectrum::resetZ80()
 	AF = AF_ = 0xffff;
 	SP = 0xffff;
 	m_Z80Processor.intEnabledAt = -1;
+	m_maxEmulTime = 0;
 }
 
 void ZXSpectrum::loopZ80()
 {
-#ifdef DBG
 	uint64_t startTime = micros();
-#endif // DBG
 	int32_t usedCycles;
 	rp2040.fifo.push(START_FRAME);
 	intZ80();
@@ -4733,12 +4723,9 @@ void ZXSpectrum::loopZ80()
 	m_Z80Processor.tCount -= LOOPCYCLES;
 	m_frameCounter = (++m_frameCounter) & 0x1F;
 	if (m_Z80Processor.intEnabledAt >= 0) m_Z80Processor.intEnabledAt -= LOOPCYCLES;
-#ifdef DBG
 	m_emulationTime = micros() - startTime;
-#endif // DBG
-	m_waitTime = micros();
+	if (m_maxEmulTime < m_emulationTime) m_maxEmulTime = m_emulationTime;
 	while (!(rp2040.fifo.pop() & STOP_FRAME));
-	m_waitTime = micros() - m_waitTime;
 }
 
 void ZXSpectrum::startTape(BYTE* pBuffer, uint32_t bufferSize)
@@ -4788,34 +4775,65 @@ void ZXSpectrum::tape1X()
 	m_tapeStates[4] = { 735, 1 };
 }
 
-void ZXSpectrum::writeReg(uint8_t reg, uint8_t data)
+void ZXSpectrum::tapeMode(bool isTurbo)
 {
-	Wire1.beginTransmission(0x20);
-	Wire1.write(reg); Wire1.write(data);
-	Wire1.endTransmission();
-}
-
-uint8_t ZXSpectrum::readKeys()
-{
-	Wire1.beginTransmission(0x20); Wire1.write(0x13); Wire1.endTransmission(); // Request GPIOB state
-	Wire1.requestFrom(0x20, 1);
-	return (Wire1.read() | 0xE0);
-}
-
-bool ZXSpectrum::onTimer(struct repeating_timer* pTimer)
-{
-	ZXSpectrum* pInstance = (ZXSpectrum*)pTimer->user_data;
-	uint8_t tapeBit = pInstance->m_inPortFE[7] | 0xBF, regAddr = 0x14, regFlush = 0xFF;  
-	if (pInstance->m_portScanIdx > 7)
+	if (isTurbo)
 	{
-		regAddr = 0x15; regFlush = 0xE0;
+		m_pZXMemory[1409] = 206;
+		m_pZXMemory[1416] = 227;
+		m_pZXMemory[1424] = 228;
+		m_pZXMemory[1432] = 236;
+		m_pZXMemory[1446] = 216;
+		m_pZXMemory[1479] = 217;
+		m_pZXMemory[1487] = 229;
+		m_pZXMemory[1492] = 215;
+		m_pZXMemory[1512] = 5;
+		m_tapeStates[0] = { 427, 2 };
+		m_tapeStates[1] = { 855, 2 };
+		m_tapeStates[2] = { 1084, 4846 };
+		m_tapeStates[3] = { 333, 1 };
+		m_tapeStates[4] = { 367, 1 };
 	}
-	pInstance->writeReg(regAddr, pInstance->m_portScanMask[pInstance->m_portScanIdx]);
-	if (pInstance->m_portScanIdx < 8)
-		pInstance->m_inPortFE[pInstance->m_portScanIdx] = pInstance->readKeys() & tapeBit;
 	else
-		pInstance->m_inPortFE[pInstance->m_portScanIdx] = pInstance->readKeys() ^ 0xFF;
-	pInstance->writeReg(regAddr, regFlush);
-	if (++pInstance->m_portScanIdx >= 10) pInstance->m_portScanIdx = 0;
-	return true;
+	{
+		m_pZXMemory[1409] = 156;
+		m_pZXMemory[1416] = 198;
+		m_pZXMemory[1424] = 201;
+		m_pZXMemory[1432] = 212;
+		m_pZXMemory[1446] = 176;
+		m_pZXMemory[1479] = 178;
+		m_pZXMemory[1487] = 203;
+		m_pZXMemory[1492] = 176;
+		m_pZXMemory[1512] = 22;
+		m_tapeStates[0] = { 855, 2 };
+		m_tapeStates[1] = { 1710, 2 };
+		m_tapeStates[2] = { 2168, 4846 };
+		m_tapeStates[3] = { 667, 1 };
+		m_tapeStates[4] = { 735, 1 };
+	}
+}
+
+void ZXSpectrum::storeState(const char* pFileName)
+{
+	LittleFS.begin();
+	File storeFile = LittleFS.open(pFileName, "w");
+	if (storeFile.write(m_pZXMemory + 16384, 49152) != 49152 || storeFile.write((uint8_t*)&m_Z80Processor, sizeof(m_Z80Processor)) != sizeof(m_Z80Processor) || storeFile.write((uint8_t*)&m_borderColor, 2) != 2)
+	{
+		DBG_PRINTLN("Error saving state file");
+	}
+	storeFile.close();
+	LittleFS.end();
+	//stopTape();
+}
+
+void ZXSpectrum::restoreState(const char* pFileName)
+{
+	LittleFS.begin();
+	File storeFile = LittleFS.open(pFileName, "r");
+	if (storeFile.read(m_pZXMemory + 16384, 49152) != 49152 || storeFile.read((uint8_t*)&m_Z80Processor, sizeof(m_Z80Processor)) != sizeof(m_Z80Processor) || storeFile.read((uint8_t*)&m_borderColor, 2) != 2)
+	{
+		DBG_PRINTLN("Error loading state file");
+	}
+	storeFile.close();
+	LittleFS.end();
 }

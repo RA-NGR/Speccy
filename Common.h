@@ -12,7 +12,6 @@
 #include <Wire.h>
 
 #define DBG
-//#define KBD_EMULATED
 
 #define TFT_WR   20		/* Write strobe pin */
 #define TFT_DC   21		/* Data Command control pin */

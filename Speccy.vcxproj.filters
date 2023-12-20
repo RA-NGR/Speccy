@@ -67,9 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Speccy.ino" />
-    <ClCompile Include="Display.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ZXSpectrum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -352,15 +349,15 @@
     <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\PWMAudio\src\PWMAudio.cpp">
       <Filter>src\_micro-api-readonly\libraries\PWMAudio</Filter>
     </ClCompile>
+    <ClCompile Include="Browser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.Speccy.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Display.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ZXSpectrum.h">
@@ -825,6 +822,9 @@
     <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\PWMAudio\src\PWMAudio.h">
       <Filter>src\_micro-api-readonly\libraries\PWMAudio</Filter>
     </ClInclude>
+    <ClInclude Include="Browser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\keywords.txt">
@@ -851,6 +851,7 @@
     <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\PWMAudio\keywords.txt">
       <Filter>src\_micro-api-readonly\libraries\PWMAudio</Filter>
     </Text>
+    <Text Include="board.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\library.properties">

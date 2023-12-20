@@ -1,0 +1,4 @@
+# Speccy build property overrides
+#
+runtime.tools.mkspiffs.path=notTheToolYoureLookingFor
+
