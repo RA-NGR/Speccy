@@ -334,7 +334,6 @@
     <ClInclude Include="__vm\.Speccy.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="board.txt" />
     <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\extras\USB_Host_Shield\readme.txt" />
     <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\extras\USB_Host_Shield\UsbHostShieldDiff.txt" />
     <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\src\DigitalIO\readme.txt" />

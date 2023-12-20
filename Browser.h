@@ -31,7 +31,7 @@ public:
 	String getSelectedFile() { return m_selectedFile; };
 	bool getSoundState() { return m_soundOn; };
 	bool getTapeMode() { return m_tapeTurbo; };
-	void setTapeMode(bool tapeMode) { m_tapeTurbo = tapeMode; };
+//	void setTapeMode(bool tapeMode) { m_tapeTurbo = tapeMode; };
 	const char* getROMFileName() { return m_romFileNames[m_currRom]; };
 };
 

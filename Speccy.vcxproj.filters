@@ -851,7 +851,6 @@
     <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\PWMAudio\keywords.txt">
       <Filter>src\_micro-api-readonly\libraries\PWMAudio</Filter>
     </Text>
-    <Text Include="board.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\library.properties">
