@@ -49,9 +49,6 @@
     <Filter Include="src\_micro-api-readonly\libraries\SD">
       <UniqueIdentifier>{c34a730a-8e22-44ce-bc3f-8900d936804b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\_micro-api-readonly\libraries\SDFS">
-      <UniqueIdentifier>{8e1d3b50-7167-4266-87ee-f2705e504e3d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\_micro-api-readonly\libraries\SPI">
       <UniqueIdentifier>{9963fab9-504d-4440-8ce8-dac9efa835bf}</UniqueIdentifier>
     </Filter>
@@ -63,6 +60,9 @@
     </Filter>
     <Filter Include="src\_micro-api-readonly\libraries\PWMAudio">
       <UniqueIdentifier>{04014ea3-fe9b-4497-984f-bb98c360d866}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\SDFS">
+      <UniqueIdentifier>{e13b2ca8-2779-4686-8d6e-718f1293039e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -198,9 +198,6 @@
     </ClCompile>
     <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SD\src\SD.cpp">
       <Filter>src\_micro-api-readonly\libraries\SD</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SDFS\src\SDFS.cpp">
-      <Filter>src\_micro-api-readonly\libraries\SDFS</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SPI\src\SPI.cpp">
       <Filter>src\_micro-api-readonly\libraries\SPI</Filter>
@@ -351,6 +348,9 @@
     </ClCompile>
     <ClCompile Include="Browser.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\SDFS\src\SDFS.cpp">
+      <Filter>src\_micro-api-readonly\libraries\SDFS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -597,9 +597,6 @@
     <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SD\src\SD.h">
       <Filter>src\_micro-api-readonly\libraries\SD</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SDFS\src\SDFS.h">
-      <Filter>src\_micro-api-readonly\libraries\SDFS</Filter>
-    </ClInclude>
     <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SPI\src\SPI.h">
       <Filter>src\_micro-api-readonly\libraries\SPI</Filter>
     </ClInclude>
@@ -825,6 +822,9 @@
     <ClInclude Include="Browser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\SDFS\src\SDFS.h">
+      <Filter>src\_micro-api-readonly\libraries\SDFS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\keywords.txt">
@@ -859,9 +859,6 @@
     <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SD\library.properties">
       <Filter>src\_micro-api-readonly\libraries\SD</Filter>
     </None>
-    <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SDFS\library.properties">
-      <Filter>src\_micro-api-readonly\libraries\SDFS</Filter>
-    </None>
     <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SPI\library.properties">
       <Filter>src\_micro-api-readonly\libraries\SPI</Filter>
     </None>
@@ -873,6 +870,9 @@
     </None>
     <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\PWMAudio\library.properties">
       <Filter>src\_micro-api-readonly\libraries\PWMAudio</Filter>
+    </None>
+    <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\SDFS\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\SDFS</Filter>
     </None>
   </ItemGroup>
 </Project>

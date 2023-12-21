@@ -227,16 +227,6 @@ uint8_t fontData[] = { // 8x8 Spectrum font with russian characters, codepage Wi
 	0x00, 0x00, 0x3C, 0x44, 0x3C, 0x24, 0x44, 0x00  // я
 };
 
-//Browser::Browser()
-//{
-//
-//}
-
-Browser::~Browser()
-{
-
-}
-
 void Browser::drawChar(const uint8_t ch, uint8_t posX, uint16_t foreColor, uint16_t backColor)
 {
 	uint16_t* pBuffer = m_pDisplayInstance->getBuffer(0);

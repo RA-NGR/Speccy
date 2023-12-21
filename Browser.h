@@ -25,7 +25,7 @@ class Browser
 	void drawFooter();
 public:
 	Browser(Display* pDisplayInstance, Keyboard* pKeyboardInstance) : m_pDisplayInstance(pDisplayInstance), m_pKeyboardInstance(pKeyboardInstance) {};
-	~Browser();
+	~Browser() {};
 	void drawString(const String textStr, uint8_t posX, uint8_t posY, uint16_t foreColor, uint16_t backColor, bool isAnsi = true);
 	bool run();
 	String getSelectedFile() { return m_selectedFile; };

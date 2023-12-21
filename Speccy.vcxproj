@@ -162,11 +162,11 @@
     <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\src\lfs.c" />
     <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\src\lfs_util.c" />
     <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\src\LittleFS.cpp" />
-    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SDFS\src\SDFS.cpp" />
     <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SD\src\SD.cpp" />
     <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SPI\src\SPI.cpp" />
     <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\Wire\src\Wire.cpp" />
     <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\PWMAudio\src\PWMAudio.cpp" />
+    <ClCompile Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\SDFS\src\SDFS.cpp" />
     <ClCompile Include="Speccy.ino">
       <FileType>CppCode</FileType>
       <DeploymentContent>true</DeploymentContent>
@@ -321,12 +321,12 @@
     <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\lib\littlefs\lfs.h" />
     <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\lib\littlefs\lfs_util.h" />
     <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\src\LittleFS.h" />
-    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SDFS\src\SDFS.h" />
     <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SD\src\SD.h" />
     <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SPI\src\SPI.h" />
     <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\Wire\src\Wire.h" />
     <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\variants\rpipico\pins_arduino.h" />
     <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\PWMAudio\src\PWMAudio.h" />
+    <ClInclude Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\SDFS\src\SDFS.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="ZXMacros.h" />
     <ClInclude Include="ZXPeripherals.h" />
@@ -346,11 +346,11 @@
   <ItemGroup>
     <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\ESP8266SdFat\library.properties" />
     <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\LittleFS\library.properties" />
-    <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SDFS\library.properties" />
     <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SD\library.properties" />
     <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\SPI\library.properties" />
     <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.1.1\libraries\Wire\library.properties" />
     <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\PWMAudio\library.properties" />
+    <None Include="C:\Users\Owner\AppData\Local\arduino15\packages\rp2040\hardware\rp2040\3.6.0\libraries\SDFS\library.properties" />
   </ItemGroup>
   <PropertyGroup>
     <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
